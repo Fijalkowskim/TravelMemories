@@ -43,3 +43,5 @@ Welcome to the "Travel Memories" repository! This is a web application designed 
 - All data, including user profiles, journeys, stages, and photos, is seamlessly synchronized with the MySQL database.
 
 Feel free to contribute, report issues, or suggest enhancements to make "Travel Memories" an even more delightful platform for sharing your travel stories! Happy coding and safe travels! 🌍✈️
+
+Link to organisation repository: [TravelMemories.github.io](https://github.com/TravelMemories/TravelMemories.github.io)
