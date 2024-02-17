@@ -1,13 +1,9 @@
 package sr.tm.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
-import sr.tm.BlobSerializer;
 
-import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Set;
 

@@ -1,3 +1,5 @@
+-- Paste these scripts to MySQL database
+
 CREATE DATABASE IF NOT EXISTS travel_memories;
 USE travel_memories;
 
