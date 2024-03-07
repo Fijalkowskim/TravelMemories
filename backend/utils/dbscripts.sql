@@ -20,11 +20,12 @@ CREATE TABLE user (
 CREATE TABLE travel (
                         id INT PRIMARY KEY AUTO_INCREMENT,
                         user_id INT,
-                        location_name VARCHAR(100),
+                        location_name VARCHAR(100) NOT NULL,
                         description VARCHAR(300),
-                        latitude DECIMAL(11,8),
-                        longitude DECIMAL(11,8),
-                        travel_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        latitude DECIMAL(11,8) NOT NULL,
+                        longitude DECIMAL(11,8) NOT NULL,
+                        travel_date DATE NOT NULL ,
+                        thumbnail_id INT,
                         FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -37,7 +38,7 @@ CREATE TABLE stage (
                        description VARCHAR(300),
                        latitude DECIMAL(11,8),
                        longitude DECIMAL(11,8),
-                       stage_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                       stage_date DATE,
                        FOREIGN KEY (travel_id) REFERENCES travel(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -61,6 +62,10 @@ CREATE TABLE likes (
                        photo_id INT,
                        FOREIGN KEY (photo_id) REFERENCES photo(id)
 );
+
+ALTER TABLE travel
+    ADD CONSTRAINT fk_travel_thumbnail_id
+        FOREIGN KEY (thumbnail_id) REFERENCES photo(id);
 
 INSERT INTO user (email, password_hash) VALUES
                                                   ('user1@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),

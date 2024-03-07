@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import com.fijalkowskim.travelmemories.models.User;
+import com.fijalkowskim.travelmemories.models.users.User;
 import com.fijalkowskim.travelmemories.services.UserService;
 
 @Controller

@@ -1,6 +1,6 @@
 package com.fijalkowskim.travelmemories.services;
 
-import com.fijalkowskim.travelmemories.models.Photo;
+import com.fijalkowskim.travelmemories.models.photos.Photo;
 import com.fijalkowskim.travelmemories.repositories.PhotoDAORepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;

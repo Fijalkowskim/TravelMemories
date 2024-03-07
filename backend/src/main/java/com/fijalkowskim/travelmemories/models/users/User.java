@@ -1,6 +1,7 @@
-package com.fijalkowskim.travelmemories.models;
+package com.fijalkowskim.travelmemories.models.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fijalkowskim.travelmemories.models.travels.Travel;
 import jakarta.persistence.*;
 import lombok.Data;
 

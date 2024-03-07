@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import com.fijalkowskim.travelmemories.models.Photo;
-import com.fijalkowskim.travelmemories.models.Stage;
+import com.fijalkowskim.travelmemories.models.photos.Photo;
+import com.fijalkowskim.travelmemories.models.stages.Stage;
 import com.fijalkowskim.travelmemories.services.PhotoService;
 import com.fijalkowskim.travelmemories.services.StageService;
 

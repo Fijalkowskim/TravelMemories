@@ -1,6 +1,6 @@
 package com.fijalkowskim.travelmemories.repositories;
 
-import com.fijalkowskim.travelmemories.models.Travel;
+import com.fijalkowskim.travelmemories.models.travels.Travel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

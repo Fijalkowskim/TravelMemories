@@ -1,6 +1,6 @@
 package com.fijalkowskim.travelmemories.controllers;
 
-import com.fijalkowskim.travelmemories.models.Travel;
+import com.fijalkowskim.travelmemories.models.travels.Travel;
 import com.fijalkowskim.travelmemories.services.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.fijalkowskim.travelmemories.models.Stage;
+import com.fijalkowskim.travelmemories.models.stages.Stage;
 import com.fijalkowskim.travelmemories.services.StageService;
 
 import java.util.Optional;
@@ -51,23 +51,23 @@ public class StageController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @PutMapping("/stage/add")
-    public ResponseEntity<Stage> addStage(@RequestParam(name = "travelId") Long travelId,@RequestBody Stage stage){
-
-        Optional<Travel> travel = travelService.getTravelById(travelId);
-        if(travel.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        stage.setTravel(travel.get());
-        if(stage.getId()!=null){
-            Optional<Stage> oldStage = stageService.getById(stage.getId());
-            if(oldStage.isPresent()){
-                stage.setPhotos(oldStage.get().getPhotos());
-            }
-        }
-
-        Stage newStage = stageService.save(stage);
-        PageRequest pageRequest = PageRequest.of(0, 40);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newStage);
-    }
+//    @PutMapping("/stage/add")
+//    public ResponseEntity<Stage> addStage(@RequestParam(name = "travelId") Long travelId,@RequestBody Stage stage){
+//
+//        Optional<Travel> travel = travelService.getTravelById(travelId);
+//        if(travel.isEmpty()){
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        }
+//        stage.setTravel(travel.get());
+//        if(stage.getId()!=null){
+//            Optional<Stage> oldStage = stageService.getById(stage.getId());
+//            if(oldStage.isPresent()){
+//                stage.setPhotos(oldStage.get().getPhotos());
+//            }
+//        }
+//
+//        Stage newStage = stageService.save(stage);
+//        PageRequest pageRequest = PageRequest.of(0, 40);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(newStage);
+//    }
 }

@@ -3,14 +3,11 @@ package com.fijalkowskim.travelmemories.services;
 import com.fijalkowskim.travelmemories.exceptions.CustomHTTPException;
 import com.fijalkowskim.travelmemories.repositories.UserDAORepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.fijalkowskim.travelmemories.models.User;
+import com.fijalkowskim.travelmemories.models.users.User;
 
 @Service
 @Transactional
@@ -32,7 +29,7 @@ public class UserService {
         userDAORepository.delete(user);
     }
     public User createUser(String email, String password) throws CustomHTTPException {
-        if(userDAORepository.findByEmail(email) != null) throw new CustomHTTPException("User with this email already exists.",HttpStatus.ALREADY_REPORTED);
+        if(userDAORepository.findByEmail(email) != null) throw new CustomHTTPException("User with this email already exists.",HttpStatus.CONFLICT);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
         User user = new User();
         user.setEmail(email);

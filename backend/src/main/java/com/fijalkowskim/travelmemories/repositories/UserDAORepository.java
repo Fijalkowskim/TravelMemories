@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import com.fijalkowskim.travelmemories.models.User;
+import com.fijalkowskim.travelmemories.models.users.User;
 
 public interface UserDAORepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT COUNT(*) FROM User WHERE email = :email AND password_hash = :password", nativeQuery = true)

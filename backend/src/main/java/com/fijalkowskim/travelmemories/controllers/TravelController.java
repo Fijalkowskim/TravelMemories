@@ -1,12 +1,14 @@
 package com.fijalkowskim.travelmemories.controllers;
 
+import com.fijalkowskim.travelmemories.exceptions.CustomHTTPException;
+import com.fijalkowskim.travelmemories.requestmodels.TravelRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.fijalkowskim.travelmemories.models.Travel;
+import com.fijalkowskim.travelmemories.models.travels.Travel;
 import com.fijalkowskim.travelmemories.services.PhotoService;
 import com.fijalkowskim.travelmemories.services.StageService;
 import com.fijalkowskim.travelmemories.services.TravelService;
@@ -15,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/travels")
 @CrossOrigin("http://localhost:3000")
 public class TravelController {
     PhotoService photoService;
@@ -29,48 +31,34 @@ public class TravelController {
         this.travelService = travelService;
     }
 
-    @GetMapping("/travel")
+    @GetMapping("")
     public Page<Travel> getTravels(
-            @RequestParam(name = "id", required = false) Long id,
-            @RequestParam(name = "userId", required = false) Long userId,
             @RequestParam(name = "sort", defaultValue = "latest") String sort,
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "pageSize", defaultValue = "40") int pageSize){
+            @RequestParam(name = "pageSize", defaultValue = "20") int pageSize){
         PageRequest pageRequest = PageRequest.of(page, pageSize);
-        return travelService.getTravelsById(id,userId,  pageRequest, sort);
+        return travelService.getTravels(pageRequest, sort);
     }
-    @GetMapping("/travel/public-photos")
-    public List<Travel> getTravelsPublicPhotos(
-            @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "pageSize", defaultValue = "40") int pageSize){
-        PageRequest pageRequest = PageRequest.of(page, pageSize);
-        return travelService.getTravelsWithPublicPhotos(pageRequest);
-    }
+//    @GetMapping("/travel/public-photos")
+//    public List<Travel> getTravelsPublicPhotos(
+//            @RequestParam(name = "page", defaultValue = "0") int page,
+//            @RequestParam(name = "pageSize", defaultValue = "40") int pageSize){
+//        PageRequest pageRequest = PageRequest.of(page, pageSize);
+//        return travelService.getTravelsWithPublicPhotos(pageRequest);
+//    }
 
-    @DeleteMapping("/travel/delete")
-    public ResponseEntity<Page<Travel>> deleteStage(@RequestParam(name = "id") Long id,@RequestParam(name = "userId") Long userID){
-        PageRequest pageRequest = PageRequest.of(0, 40);
-        Page<Travel> travels = travelService.getTravelsById(id, userID, pageRequest, "latest");
-        boolean deleteSuccessful = travelService.deleteTravel(id);
-        if(deleteSuccessful){
-            if(travels.isEmpty()){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(travels);
-            }
-            return ResponseEntity.ok(travels);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteStage(@PathVariable long id) throws CustomHTTPException {
+        travelService.deleteTravel(id);
+        return ResponseEntity.ok("Travel deleted successfully.");
     }
 
-    @PutMapping("/travel/add")
-    public ResponseEntity<Travel> addTravel(@RequestBody Travel travel){
-        if(travel.getId() != null){
-            Optional<Travel> oldTravel = travelService.getTravelById(travel.getId());
-            if(oldTravel.isPresent()){
-                travel.setStages(oldTravel.get().getStages());
-            }
-        }
-
-        Travel newTravel = travelService.save(travel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newTravel);
+    @PutMapping("")
+    public ResponseEntity<Travel> addTravel(@RequestBody TravelRequest travelRequest) throws CustomHTTPException{
+        return ResponseEntity.status(HttpStatus.CREATED).body(travelService.addTravel(travelRequest));
+    }
+    @PostMapping("/{id}")
+    public ResponseEntity<Travel> addTravel(@PathVariable long id, @RequestBody TravelRequest travelRequest) throws CustomHTTPException{
+        return ResponseEntity.status(HttpStatus.OK).body(travelService.updateTravel(id,travelRequest));
     }
 }

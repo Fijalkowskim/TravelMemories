@@ -6,7 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.fijalkowskim.travelmemories.models.Likes;
+import com.fijalkowskim.travelmemories.models.photos.Likes;
 import com.fijalkowskim.travelmemories.services.LikesService;
 
 @RestController

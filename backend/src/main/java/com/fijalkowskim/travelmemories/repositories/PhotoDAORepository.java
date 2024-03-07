@@ -3,7 +3,7 @@ package com.fijalkowskim.travelmemories.repositories;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.fijalkowskim.travelmemories.models.Photo;
+import com.fijalkowskim.travelmemories.models.photos.Photo;
 
 public interface PhotoDAORepository extends JpaRepository<Photo, Long> {
     Page<Photo> findAllByPrivacyOrderByPhotoDateAsc(Long privacy, Pageable pageable);
