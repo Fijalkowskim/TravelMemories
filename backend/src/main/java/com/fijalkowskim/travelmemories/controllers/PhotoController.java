@@ -53,59 +53,59 @@ public class PhotoController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(photoService.getAllPhotosByStageId(null, pageRequest, "latest", 0L));
     }
 
-    @PutMapping("/photo/add")
-    public ResponseEntity<Photo> addStage(@RequestParam(value = "id", required = false) Long id,
-                                          @RequestParam("stageId") Long stageId,
-                                          @RequestPart(value = "photoData", required = false) MultipartFile photoData,
-                                          @RequestParam("photoDate") String photoDate,
-                                          @RequestParam("description") String description,
-                                          @RequestParam("locationName") String locationName,
-                                          @RequestParam("latitude") Double latitude,
-                                          @RequestParam("longitude") Double longitude,
-                                          @RequestParam("privacy") Long privacy) {
-
-        Optional<Stage> stage = stageService.getById(stageId);
-        if(stage.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        Photo photo = new Photo();
-        photo.setStage(stage.get());
-        if(id != null){
-            photo.setId(id);
-        }
-        if(photoData == null){
-            if(id == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-            Optional<Photo> oldPhoto = photoService.getById(id);
-            if(oldPhoto.isEmpty()){
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-            }
-            photo.setPhotoData(oldPhoto.get().getPhotoData());
-        }
-        else{
-            try {
-                photo.setPhotoData(photoData.getBytes());
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-            }
-        }
-
-        photo.setDescription(description);
-        photo.setPhotoDate(photoDate);
-        photo.setLocationName(locationName);
-        photo.setLatitude(latitude);
-        photo.setLongitude(longitude);
-        photo.setPrivacy(privacy);
-        photo.setLikes(new HashSet<>());
-        if(id != null){
-            Optional<Photo> oldPhoto = photoService.getById(id);
-            if(oldPhoto.isPresent()){
-                photo.setLikes(oldPhoto.get().getLikes());
-            }
-        }
-        Photo newPhoto = photoService.save(photo);
-        PageRequest pageRequest = PageRequest.of(0, 40);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newPhoto);
-    }
+//    @PutMapping("/photo/add")
+//    public ResponseEntity<Photo> addStage(@RequestParam(value = "id", required = false) Long id,
+//                                          @RequestParam("stageId") Long stageId,
+//                                          @RequestPart(value = "photoData", required = false) MultipartFile photoData,
+//                                          @RequestParam("photoDate") String photoDate,
+//                                          @RequestParam("description") String description,
+//                                          @RequestParam("locationName") String locationName,
+//                                          @RequestParam("latitude") Double latitude,
+//                                          @RequestParam("longitude") Double longitude,
+//                                          @RequestParam("privacy") Long privacy) {
+//
+//        Optional<Stage> stage = stageService.getById(stageId);
+//        if(stage.isEmpty()){
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        }
+//        Photo photo = new Photo();
+//        photo.setStage(stage.get());
+//        if(id != null){
+//            photo.setId(id);
+//        }
+//        if(photoData == null){
+//            if(id == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+//            Optional<Photo> oldPhoto = photoService.getById(id);
+//            if(oldPhoto.isEmpty()){
+//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+//            }
+//            photo.setPhotoData(oldPhoto.get().getPhotoData());
+//        }
+//        else{
+//            try {
+//                photo.setPhotoData(photoData.getBytes());
+//            } catch (IOException e) {
+//                System.out.println(e.getMessage());
+//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+//            }
+//        }
+//
+//        photo.setDescription(description);
+//        photo.setPhotoDate(photoDate);
+//        photo.setLocationName(locationName);
+//        photo.setLatitude(latitude);
+//        photo.setLongitude(longitude);
+//        photo.setPrivacy(privacy);
+//        photo.setLikes(new HashSet<>());
+//        if(id != null){
+//            Optional<Photo> oldPhoto = photoService.getById(id);
+//            if(oldPhoto.isPresent()){
+//                photo.setLikes(oldPhoto.get().getLikes());
+//            }
+//        }
+//        Photo newPhoto = photoService.save(photo);
+//        PageRequest pageRequest = PageRequest.of(0, 40);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(newPhoto);
+//    }
 
 }

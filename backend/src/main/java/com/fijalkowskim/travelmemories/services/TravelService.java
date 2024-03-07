@@ -43,6 +43,17 @@ public class TravelService {
         }
         return travels;
     }
+    public Page<Travel> getUserTravels(long userId, Pageable pageable, String sort){
+        Page<Travel> travels;
+        switch(sort.toLowerCase()){
+            case "asc":
+                travels = travelDAORepository.findAllByUserIdOrderByTravelDateAsc(userId, pageable);
+                break;
+            default:
+                travels = travelDAORepository.findAllByUserIdOrderByTravelDateDesc(userId, pageable);
+        }
+        return travels;
+    }
     public Travel getTravelById(Long travelId) throws CustomHTTPException{
         Optional<Travel> travel = travelDAORepository.findById(travelId);
         if(travel.isEmpty()) throw new CustomHTTPException("Travel not found", HttpStatus.NOT_FOUND);
@@ -82,7 +93,7 @@ public class TravelService {
         if(user.isEmpty()) throw new CustomHTTPException("User not found", HttpStatus.NOT_FOUND);
         Travel travel = new Travel();
         travel.setUser(user.get());
-        travel.setTravelDate(travelRequest.getTravelDate());
+        travel.setTravelDate(travelRequest.getDate());
         travel.setDescription(travelRequest.getDescription());
         travel.setLatitude(travelRequest.getLatitude());
         travel.setLongitude(travelRequest.getLongitude());

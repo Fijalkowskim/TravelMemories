@@ -33,22 +33,30 @@ public class TravelController {
 
     @GetMapping("")
     public Page<Travel> getTravels(
-            @RequestParam(name = "sort", defaultValue = "latest") String sort,
+            @RequestParam(name = "sort", defaultValue = "") String sort,
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "pageSize", defaultValue = "20") int pageSize){
+            @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) throws CustomHTTPException{
         PageRequest pageRequest = PageRequest.of(page, pageSize);
         return travelService.getTravels(pageRequest, sort);
     }
-//    @GetMapping("/travel/public-photos")
-//    public List<Travel> getTravelsPublicPhotos(
-//            @RequestParam(name = "page", defaultValue = "0") int page,
-//            @RequestParam(name = "pageSize", defaultValue = "40") int pageSize){
-//        PageRequest pageRequest = PageRequest.of(page, pageSize);
-//        return travelService.getTravelsWithPublicPhotos(pageRequest);
-//    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Travel> getTravel (
+            @PathVariable long id) throws CustomHTTPException{
+        return ResponseEntity.ok(travelService.getTravelById(id));
+    }
+    @GetMapping("/user/{userId}")
+    public Page<Travel> getUserTravels(
+            @PathVariable long userId,
+            @RequestParam(name = "sort", defaultValue = "") String sort,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) throws CustomHTTPException{
+        PageRequest pageRequest = PageRequest.of(page, pageSize);
+        return travelService.getUserTravels(userId, pageRequest, sort);
+    }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteStage(@PathVariable long id) throws CustomHTTPException {
+    public ResponseEntity<?> deleteTravel(@PathVariable long id) throws CustomHTTPException {
         travelService.deleteTravel(id);
         return ResponseEntity.ok("Travel deleted successfully.");
     }
@@ -57,8 +65,9 @@ public class TravelController {
     public ResponseEntity<Travel> addTravel(@RequestBody TravelRequest travelRequest) throws CustomHTTPException{
         return ResponseEntity.status(HttpStatus.CREATED).body(travelService.addTravel(travelRequest));
     }
+
     @PostMapping("/{id}")
-    public ResponseEntity<Travel> addTravel(@PathVariable long id, @RequestBody TravelRequest travelRequest) throws CustomHTTPException{
+    public ResponseEntity<Travel> updateTravel(@PathVariable long id, @RequestBody TravelRequest travelRequest) throws CustomHTTPException{
         return ResponseEntity.status(HttpStatus.OK).body(travelService.updateTravel(id,travelRequest));
     }
 }

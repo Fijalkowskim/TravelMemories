@@ -1,14 +1,12 @@
 package com.fijalkowskim.travelmemories.requestmodels;
 
-
 import lombok.Data;
 
 import java.util.Date;
 
-
 @Data
-public class TravelRequest {
-    private long userId;
+public class StageRequest {
+    private long travelId;
     private Date date;
     private String locationName;
     private Double latitude;

@@ -5,12 +5,13 @@ import com.fijalkowskim.travelmemories.models.stages.Stage;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "photo")
+@Table(name = "photos")
 public class Photo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +29,7 @@ public class Photo {
     private Long privacy;
 
     @Column(name = "photo_date")
-    private String photoDate;
+    private Date photoDate;
 
     @Column(name = "latitude")
     private Double latitude;

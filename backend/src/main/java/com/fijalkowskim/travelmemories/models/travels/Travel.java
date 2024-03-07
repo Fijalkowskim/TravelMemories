@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "travel")
+@Table(name = "travels")
 public class Travel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +43,6 @@ public class Travel {
     @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Stage> stages;
 
-    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "thumbnail_id", referencedColumnName = "id")
     private Photo thumbnail;

@@ -6,11 +6,12 @@ import com.fijalkowskim.travelmemories.models.travels.Travel;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
 @Entity
-@Table(name = "stage")
+@Table(name = "stages")
 public class Stage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +25,7 @@ public class Stage {
     private String locationName;
 
     @Column(name = "stage_date")
-    private String stageDate;
+    private Date stageDate;
 
     @JsonIgnore
     @ManyToOne
@@ -40,5 +41,9 @@ public class Stage {
     @JsonIgnore
     @OneToMany(mappedBy = "stage", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Photo> photos;
+
+    @OneToOne
+    @JoinColumn(name = "thumbnail_id", referencedColumnName = "id")
+    private Photo thumbnail;
 
 }

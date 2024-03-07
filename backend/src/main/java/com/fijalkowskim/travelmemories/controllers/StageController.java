@@ -1,6 +1,9 @@
 package com.fijalkowskim.travelmemories.controllers;
 
+import com.fijalkowskim.travelmemories.exceptions.CustomHTTPException;
 import com.fijalkowskim.travelmemories.models.travels.Travel;
+import com.fijalkowskim.travelmemories.requestmodels.StageRequest;
+import com.fijalkowskim.travelmemories.requestmodels.TravelRequest;
 import com.fijalkowskim.travelmemories.services.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,60 +17,44 @@ import com.fijalkowskim.travelmemories.services.StageService;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/stages")
 @CrossOrigin("http://localhost:3000")
 public class StageController {
     private final StageService stageService;
-    TravelService travelService;
-
     @Autowired
-    public StageController(StageService stageService, TravelService travelService) {
-
+    public StageController(StageService stageService) {
         this.stageService = stageService;
-        this.travelService = travelService;
     }
-
-    @GetMapping("/stage")
-    public Page<Stage> getStages(
-            @RequestParam(name = "travelId", required = false) String travelId,
-            @RequestParam(name = "sort", defaultValue = "latest") String sort,
+    @GetMapping("/travel/{travelId}")
+    public Page<Stage> getStagesOfTravel(
+            @PathVariable long travelId,
+            @RequestParam(name = "sort", defaultValue = "") String sort,
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "pageSize", defaultValue = "100") int pageSize){
+            @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) throws CustomHTTPException {
         PageRequest pageRequest = PageRequest.of(page, pageSize);
-        return stageService.getAllStagesByUserEmail(travelId, pageRequest, sort);
+        return stageService.getStagesOfTravel(travelId, pageRequest, sort);
     }
 
-    @DeleteMapping("/stage/delete")
-    public ResponseEntity<Stage> deleteStage(@RequestParam(name = "id") Long id){
-        PageRequest pageRequest = PageRequest.of(0, 40);
-        Optional<Stage> stage = stageService.getById(id);
-        boolean deleteSuccessful = stageService.deleteStage(id);
-        if(deleteSuccessful){
-            if(stage.isEmpty()){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-            return ResponseEntity.ok().body(stage.get());
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    @GetMapping("/{id}")
+    public ResponseEntity<Stage> getStage(
+            @PathVariable long id) throws CustomHTTPException {
+        return ResponseEntity.ok(stageService.getStageById(id));
     }
 
-//    @PutMapping("/stage/add")
-//    public ResponseEntity<Stage> addStage(@RequestParam(name = "travelId") Long travelId,@RequestBody Stage stage){
-//
-//        Optional<Travel> travel = travelService.getTravelById(travelId);
-//        if(travel.isEmpty()){
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//        }
-//        stage.setTravel(travel.get());
-//        if(stage.getId()!=null){
-//            Optional<Stage> oldStage = stageService.getById(stage.getId());
-//            if(oldStage.isPresent()){
-//                stage.setPhotos(oldStage.get().getPhotos());
-//            }
-//        }
-//
-//        Stage newStage = stageService.save(stage);
-//        PageRequest pageRequest = PageRequest.of(0, 40);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(newStage);
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteStage(@PathVariable long id) throws CustomHTTPException {
+        stageService.deleteStage(id);
+        return ResponseEntity.ok("Stage deleted successfully.");
+    }
+
+    @PutMapping("")
+    public ResponseEntity<Stage> addStage(@RequestBody StageRequest stageRequest) throws CustomHTTPException{
+        return ResponseEntity.status(HttpStatus.CREATED).body(stageService.addStage(stageRequest));
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Stage> updateStage(@PathVariable long id, @RequestBody StageRequest stageRequest) throws CustomHTTPException{
+        return ResponseEntity.status(HttpStatus.OK).body(stageService.updateStage(id,stageRequest));
+    }
+
 }
