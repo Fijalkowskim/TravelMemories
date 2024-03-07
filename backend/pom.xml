@@ -8,11 +8,11 @@
         <version>3.2.0</version>
         <relativePath/>
     </parent>
-    <groupId>sr</groupId>
-    <artifactId>tm</artifactId>
+    <groupId>com.fijalkowskim</groupId>
+    <artifactId>travelmemories</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>TravelMemories</name>
-    <description>Init project for Spring Boot</description>
+    <description>Travel Memories backend service</description>
     <properties>
         <java.version>17</java.version>
     </properties>
