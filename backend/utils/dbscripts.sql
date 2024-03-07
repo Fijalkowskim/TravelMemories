@@ -53,7 +53,7 @@ CREATE TABLE photos (
                        privacy BOOLEAN,
                        latitude DECIMAL(11,8),
                        longitude DECIMAL(11,8),
-                       photo_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                       photo_date DATE,
                        FOREIGN KEY (stage_id) REFERENCES stages(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 

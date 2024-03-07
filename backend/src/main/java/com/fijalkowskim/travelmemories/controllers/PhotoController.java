@@ -1,5 +1,8 @@
 package com.fijalkowskim.travelmemories.controllers;
 
+import com.fijalkowskim.travelmemories.exceptions.CustomHTTPException;
+import com.fijalkowskim.travelmemories.requestmodels.PhotoRequest;
+import com.fijalkowskim.travelmemories.requestmodels.StageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,95 +20,46 @@ import java.util.HashSet;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/photos")
 @CrossOrigin("http://localhost:3000")
 public class PhotoController {
     PhotoService photoService;
-    StageService stageService;
     @Autowired
-    public PhotoController(PhotoService photoService, StageService stageService){
+    public PhotoController(PhotoService photoService){
         this.photoService = photoService;
-        this.stageService = stageService;
     }
 
-    @GetMapping("/photo")
-    public Page<Photo> getPhotos(
-            @RequestParam(name ="id",required = false) Long id,
-            @RequestParam(name = "stageId", required = false) String stageId,
-            @RequestParam(name = "sort", defaultValue = "latest") String sort,
-            @RequestParam(name = "privacy", defaultValue = "0") Long privacy,
+    @GetMapping("/stage/{stageId}")
+    public Page<Photo> getPhotosOfStage(
+            @PathVariable long stageId,
+            @RequestParam(name = "sort", defaultValue = "") String sort,
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "pageSize", defaultValue = "20") int pageSize){
+            @RequestParam(name = "pageSize", defaultValue = "20") int pageSize) throws CustomHTTPException {
         PageRequest pageRequest = PageRequest.of(page, pageSize);
-        if(id!=null){
-            return photoService.getById(id, pageRequest);
-        }
-        return photoService.getAllPhotosByStageId(stageId, pageRequest, sort, privacy);
+        return photoService.getPhotosOfStage(stageId, pageRequest, sort);
     }
 
-    @DeleteMapping("/photo/delete")
-    public ResponseEntity<Page<Photo>> deletePhoto(@RequestParam(name = "id") Long id){
-        boolean deleteSuccessful = photoService.deletePhoto(id);
-        PageRequest pageRequest = PageRequest.of(0, 20);
-        if(deleteSuccessful){
-            return ResponseEntity.ok(photoService.getAllPhotosByStageId(null, pageRequest, "latest", 0L));
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(photoService.getAllPhotosByStageId(null, pageRequest, "latest", 0L));
+    @GetMapping("/{id}")
+    public ResponseEntity<Photo> getPhoto(
+            @PathVariable long id) throws CustomHTTPException {
+        return ResponseEntity.ok(photoService.getPhotoById(id));
     }
 
-//    @PutMapping("/photo/add")
-//    public ResponseEntity<Photo> addStage(@RequestParam(value = "id", required = false) Long id,
-//                                          @RequestParam("stageId") Long stageId,
-//                                          @RequestPart(value = "photoData", required = false) MultipartFile photoData,
-//                                          @RequestParam("photoDate") String photoDate,
-//                                          @RequestParam("description") String description,
-//                                          @RequestParam("locationName") String locationName,
-//                                          @RequestParam("latitude") Double latitude,
-//                                          @RequestParam("longitude") Double longitude,
-//                                          @RequestParam("privacy") Long privacy) {
-//
-//        Optional<Stage> stage = stageService.getById(stageId);
-//        if(stage.isEmpty()){
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//        }
-//        Photo photo = new Photo();
-//        photo.setStage(stage.get());
-//        if(id != null){
-//            photo.setId(id);
-//        }
-//        if(photoData == null){
-//            if(id == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//            Optional<Photo> oldPhoto = photoService.getById(id);
-//            if(oldPhoto.isEmpty()){
-//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//            }
-//            photo.setPhotoData(oldPhoto.get().getPhotoData());
-//        }
-//        else{
-//            try {
-//                photo.setPhotoData(photoData.getBytes());
-//            } catch (IOException e) {
-//                System.out.println(e.getMessage());
-//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//            }
-//        }
-//
-//        photo.setDescription(description);
-//        photo.setPhotoDate(photoDate);
-//        photo.setLocationName(locationName);
-//        photo.setLatitude(latitude);
-//        photo.setLongitude(longitude);
-//        photo.setPrivacy(privacy);
-//        photo.setLikes(new HashSet<>());
-//        if(id != null){
-//            Optional<Photo> oldPhoto = photoService.getById(id);
-//            if(oldPhoto.isPresent()){
-//                photo.setLikes(oldPhoto.get().getLikes());
-//            }
-//        }
-//        Photo newPhoto = photoService.save(photo);
-//        PageRequest pageRequest = PageRequest.of(0, 40);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(newPhoto);
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletePhoto(@PathVariable long id) throws CustomHTTPException {
+        photoService.deletePhoto(id);
+        return ResponseEntity.ok("Photo deleted successfully.");
+    }
+    @PutMapping("")
+    public ResponseEntity<Photo> addPhoto(
+            @RequestPart("photoRequest") PhotoRequest photoRequest,
+            @RequestPart("photoData") MultipartFile photoData) throws CustomHTTPException{
+        return ResponseEntity.status(HttpStatus.CREATED).body(photoService.addPhoto(photoRequest,photoData));
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Photo> updatePhoto(@PathVariable long id, @RequestBody PhotoRequest photoRequest) throws CustomHTTPException{
+        return ResponseEntity.status(HttpStatus.OK).body(photoService.updatePhoto(id,photoRequest));
+    }
 
 }

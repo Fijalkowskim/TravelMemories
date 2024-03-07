@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.fijalkowskim.travelmemories.models.photos.Likes;
+import com.fijalkowskim.travelmemories.models.photos.Like;
 
 import java.util.Optional;
 
@@ -24,21 +24,21 @@ public class LikesService {
     }
 
     public boolean save(Long photoId,Long userId){
-        Likes foundLike = likesDAORepository.findByPhotoIdAndUserId(photoId, userId);
-        if(foundLike == null){
-            Likes like = new Likes();
-            Optional<Photo> photo = photoService.getById(photoId);
-            if(photo.isEmpty()) throw new RuntimeException();
-            like.setPhoto(photo.get());
-            like.setUserId(userId);
-            likesDAORepository.save(like);
-            return true;
-        }
-        likesDAORepository.delete(foundLike);
+//        Like foundLike = likesDAORepository.findByPhotoIdAndUserId(photoId, userId);
+//        if(foundLike == null){
+//            Like like = new Like();
+//            Optional<Photo> photo = photoService.getById(photoId);
+//            if(photo.isEmpty()) throw new RuntimeException();
+//            like.setPhoto(photo.get());
+//            like.setUserId(userId);
+//            likesDAORepository.save(like);
+//            return true;
+//        }
+//        likesDAORepository.delete(foundLike);
         return false;
     }
 
-    public Page<Likes> getAllLikesByPhotoId(String photoId, Pageable pageable){
+    public Page<Like> getAllLikesByPhotoId(String photoId, Pageable pageable){
             return likesDAORepository.findAllByPhotoId(Long.valueOf(photoId), pageable);
 
     }

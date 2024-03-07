@@ -29,7 +29,7 @@ public class Photo {
     private Long privacy;
 
     @Column(name = "photo_date")
-    private Date photoDate;
+    private Date date;
 
     @Column(name = "latitude")
     private Double latitude;
@@ -47,5 +47,5 @@ public class Photo {
 
     @JsonIgnore
     @OneToMany(mappedBy = "photo", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Likes> likes = new HashSet<>();
+    private Set<Like> likes = new HashSet<>();
 }
