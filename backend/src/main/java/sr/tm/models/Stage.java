@@ -6,8 +6,8 @@ import lombok.Data;
 
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 @Table(name = "stage")
 public class Stage {
     @Id
@@ -29,18 +29,13 @@ public class Stage {
     @JoinColumn(name = "travel_id")
     private Travel travel;
 
-    @Column(name = "attraction")
-    private String attraction;
-
     @Column(name = "latitude")
     private Double latitude;
 
     @Column(name = "longitude")
     private Double longitude;
 
-    @Column(name = "attraction_link")
-    private String attractionLink;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "stage", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Photo> photos;
 

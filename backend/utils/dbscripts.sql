@@ -1,9 +1,5 @@
--- Paste these scripts to MySQL database
-
 CREATE DATABASE IF NOT EXISTS travel_memories;
 USE travel_memories;
-
--- Allow truncating and deleting referenced tables
 
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -15,12 +11,10 @@ DROP TABLE IF EXISTS likes;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
-
 CREATE TABLE user (
                       id INT PRIMARY KEY AUTO_INCREMENT,
                       email VARCHAR(50) NOT NULL UNIQUE,
-                      password_hash VARCHAR(60) NOT NULL,
-                      role varchar(20) NOT NULL
+                      password_hash VARCHAR(60) NOT NULL
 );
 
 CREATE TABLE travel (
@@ -31,8 +25,6 @@ CREATE TABLE travel (
                         latitude DECIMAL(11,8),
                         longitude DECIMAL(11,8),
                         travel_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        attraction VARCHAR(100),
-                        attraction_link VARCHAR(100),
                         FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -46,9 +38,7 @@ CREATE TABLE stage (
                        latitude DECIMAL(11,8),
                        longitude DECIMAL(11,8),
                        stage_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                       FOREIGN KEY (travel_id) REFERENCES travel(id) ON DELETE CASCADE ON UPDATE CASCADE,
-                       attraction VARCHAR(100),
-                       attraction_link VARCHAR(100)
+                       FOREIGN KEY (travel_id) REFERENCES travel(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -62,9 +52,7 @@ CREATE TABLE photo (
                        latitude DECIMAL(11,8),
                        longitude DECIMAL(11,8),
                        photo_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                       FOREIGN KEY (stage_id) REFERENCES stage(id) ON DELETE CASCADE ON UPDATE CASCADE,
-                       attraction VARCHAR(100),
-                       attraction_link VARCHAR(100)
+                       FOREIGN KEY (stage_id) REFERENCES stage(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE likes (
@@ -74,31 +62,31 @@ CREATE TABLE likes (
                        FOREIGN KEY (photo_id) REFERENCES photo(id)
 );
 
-INSERT INTO user (email, password_hash, role) VALUES
-                                                  ('user1@useremail.com', 'p1', 'USER'),
-                                                  ('user2@useremail.com', 'p2', 'USER'),
-                                                  ('user3@useremail.com', 'p3', 'USER'),
-                                                  ('user4@useremail.com', 'p4', 'USER'),
-                                                  ('user5@useremail.com', 'p5', 'USER'),
-                                                  ('user6@useremail.com', 'p6', 'USER'),
-                                                  ('user7@useremail.com', 'p7', 'USER'),
-                                                  ('user8@useremail.com', 'p8', 'USER'),
-                                                  ('user9@useremail.com', 'p9', 'USER'),
-                                                  ('user10@useremail.com', 'p10', 'USER'),
-                                                  ('user11@useremail.com', 'p11', 'USER'),
-                                                  ('user12@useremail.com', 'p12', 'USER'),
-                                                  ('user13@useremail.com', 'p13', 'USER'),
-                                                  ('user14@useremail.com', 'p14', 'USER'),
-                                                  ('user15@useremail.com', 'p15', 'USER'),
-                                                  ('user16@useremail.com', 'p16', 'USER'),
-                                                  ('user17@useremail.com', 'p17', 'USER'),
-                                                  ('user18@useremail.com', 'p18', 'USER'),
-                                                  ('user19@useremail.com', 'p19', 'USER'),
-                                                  ('user20@useremail.com', 'p20', 'USER'),
-                                                  ('user21@useremail.com', 'p21', 'USER'),
-                                                  ('user22@useremail.com', 'p22', 'USER'),
-                                                  ('user23@useremail.com', 'p23', 'USER'),
-                                                  ('user24@useremail.com', 'p24', 'USER');
+INSERT INTO user (email, password_hash) VALUES
+                                                  ('user1@useremail.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user2@useremail.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user3@useremail.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user4@useremail.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user5@useremail.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user6@useremail.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user7@useremail.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user8@useremail.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user9@useremail.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user10@useremail.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user11@useremail.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user12@useremail.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user13@useremail.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user14@useremail.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user15@useremail.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user16@useremail.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user17@useremail.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user18@useremail.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user19@useremail.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user20@useremail.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user21@useremail.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user22@useremail.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user23@useremail.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
+                                                  ('user24@useremail.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC');
 
 INSERT INTO travel (user_id, location_name, description, travel_date, latitude, longitude)
 VALUES
@@ -247,4 +235,3 @@ INSERT INTO stage (travel_id, description, stage_date, latitude, longitude) VALU
 -- -- Likes for User 2
 -- (2, 1),
 -- (2, 3);
---

@@ -15,9 +15,10 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "description")
     private String description;
-    //@JsonSerialize(using = BlobSerializer.class)
+
     @Lob
     @Column(name = "photo_data")
     private byte[] photoData;
@@ -42,7 +43,7 @@ public class Photo {
     @JoinColumn(name = "stage_id")
     private Stage stage;
 
-    //@JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "photo", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Likes> likes = new HashSet<>();
 }

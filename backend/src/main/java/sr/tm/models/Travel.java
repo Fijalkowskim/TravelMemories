@@ -15,7 +15,7 @@ public class Travel {
     @Column(name = "id")
     private Long id;
 
-    //@JsonIgnore
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -35,13 +35,7 @@ public class Travel {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "attraction")
-    private String attraction;
-
-    @Column(name = "attraction_link")
-    private String attractionLink;
-
-    //@JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Stage> stages;
 }
