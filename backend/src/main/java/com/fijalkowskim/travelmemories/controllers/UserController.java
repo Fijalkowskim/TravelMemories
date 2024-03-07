@@ -1,5 +1,6 @@
 package com.fijalkowskim.travelmemories.controllers;
 
+import com.fijalkowskim.travelmemories.exceptions.CustomHTTPException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<User> checkPassword(
             @RequestParam(name = "email") String email,
-            @RequestParam(name = "password") String password) throws Exception{
+            @RequestParam(name = "password") String password) throws CustomHTTPException {
 
         User user = userService.authenticate(email,password);
         return ResponseEntity.ok().body(user);
@@ -31,7 +32,7 @@ public class UserController {
     public ResponseEntity<String> changePassword(
             @RequestParam(name = "email") String email,
             @RequestParam(name = "oldPassword") String oldPassword,
-            @RequestParam(name = "newPassword") String newPassword) throws Exception{
+            @RequestParam(name = "newPassword") String newPassword) throws CustomHTTPException{
         userService.changePassword(email,oldPassword, newPassword);
         return ResponseEntity.ok("Password has been changed.");
     }
@@ -39,7 +40,7 @@ public class UserController {
     @DeleteMapping("")
     public ResponseEntity<String> deleteUser(
             @RequestParam(name = "email") String email,
-            @RequestParam(name = "password") String password) throws Exception{
+            @RequestParam(name = "password") String password) throws CustomHTTPException{
         userService.deleteUser(email,password);
         return ResponseEntity.ok("User deleted successfully.");
     }
@@ -47,7 +48,7 @@ public class UserController {
     @PutMapping("")
     public ResponseEntity<User> createNewUser(
             @RequestParam("email") String email,
-            @RequestParam("password") String password) throws Exception{
+            @RequestParam("password") String password) throws CustomHTTPException{
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(email,password));
     }
 
