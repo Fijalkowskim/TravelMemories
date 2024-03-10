@@ -2,6 +2,7 @@ package com.fijalkowskim.travelmemories.models.photos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fijalkowskim.travelmemories.models.users.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,9 +15,9 @@ public class Like {
     @Column(name = "id")
     private Long id;
 
-    @JsonProperty("userId")
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "photo_id", nullable = false)

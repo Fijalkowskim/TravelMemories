@@ -61,7 +61,8 @@ CREATE TABLE likes (
                        id INT AUTO_INCREMENT PRIMARY KEY,
                        user_id INT,
                        photo_id INT,
-                       FOREIGN KEY (photo_id) REFERENCES photos(id)
+                       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+                       FOREIGN KEY (photo_id) REFERENCES photos(id) ON DELETE CASCADE
 );
 
 ALTER TABLE travels
@@ -222,26 +223,26 @@ INSERT INTO stages (travel_id, description, stage_date, latitude, longitude, loc
 (24, 'Machu Picchu Exploration', '2024-12-01', -13.1631, -72.5450, 'Machu Picchu, Peru'),
 (24, 'Inca Trail Hike and Peruvian Cuisine', '2024-12-15', -13.1631, -72.5450, 'Machu Picchu, Peru');
 
--- INSERT INTO photos (stage_id, location_name, description, photo_data, privacy, latitude, longitude, photo_date)
--- VALUES
--- -- Photo for Travel 1
--- (1, 'Eiffel Tower', 'View from the top of the Eiffel Tower.', '', 0, 48.8566, 2.3522, '2023-01-10'),
--- (1, 'Louvre Museum', 'Art and history at the Louvre Museum.', '', 0, 48.8566, 2.3522, '2023-01-20'),
---
--- -- Photo for Travel 2
--- (3, 'Kinkaku-ji Temple', 'Golden Pavilion in Kyoto.', '', 0, 35.0116, 135.7681, '2023-02-05'),
--- (3, 'Tea Ceremony', 'Traditional tea ceremony experience.', '', 0, 35.0116, 135.7681, '2023-02-18'),
---
--- -- Photo for Travel 3
--- (5, 'Times Square Lights', 'Bright lights of Times Square in NYC.', '', 0, 40.7128, -74.0060, '2023-03-05'),
--- (5, 'Broadway Show', 'Exciting Broadway show experience.', '', 0, 40.7128, -74.0060, '2023-03-20');
---
---     INSERT INTO likes (user_id, photo_id)
--- VALUES
--- -- Likes for User 1
--- (1, 1),
--- (1, 2),
---
--- -- Likes for User 2
--- (2, 1),
--- (2, 3);
+INSERT INTO photos (stage_id, location_name, description, photo_data, privacy, latitude, longitude, photo_date)
+VALUES
+-- Photo for Travel 1
+(1, 'Eiffel Tower', 'View from the top of the Eiffel Tower.', '', 0, 48.8566, 2.3522, '2023-01-10'),
+(1, 'Louvre Museum', 'Art and history at the Louvre Museum.', '', 0, 48.8566, 2.3522, '2023-01-20'),
+
+-- Photo for Travel 2
+(3, 'Kinkaku-ji Temple', 'Golden Pavilion in Kyoto.', '', 0, 35.0116, 135.7681, '2023-02-05'),
+(3, 'Tea Ceremony', 'Traditional tea ceremony experience.', '', 0, 35.0116, 135.7681, '2023-02-18'),
+
+-- Photo for Travel 3
+(5, 'Times Square Lights', 'Bright lights of Times Square in NYC.', '', 0, 40.7128, -74.0060, '2023-03-05'),
+(5, 'Broadway Show', 'Exciting Broadway show experience.', '', 0, 40.7128, -74.0060, '2023-03-20');
+
+    INSERT INTO likes (user_id, photo_id)
+VALUES
+-- Likes for User 1
+(1, 1),
+(1, 2),
+
+-- Likes for User 2
+(2, 1),
+(2, 3);
