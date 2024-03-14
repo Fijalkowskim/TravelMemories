@@ -3,9 +3,9 @@ import { useTravelsContext } from "../../context/TravelsContext";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import { IoAddCircleOutline } from "react-icons/io5";
-import { StageData } from "../../model/StageData";
-import { TravelData } from "../../model/TravelData";
-import { PhotoData } from "../../model/PhotoData";
+import { StageData } from "../../models/StageData";
+import { TravelData } from "../../models/travel/TravelData";
+import { PhotoData } from "../../models/PhotoData";
 import HorizontalDisplayCard from "./HorizontalDisplayCard";
 import CustomButton from "./CustomButton";
 

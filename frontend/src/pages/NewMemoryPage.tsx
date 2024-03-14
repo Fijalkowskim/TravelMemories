@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { TiLocation } from "react-icons/ti";
 import { FaMap } from "react-icons/fa";
-import { PhotoData } from "../model/PhotoData";
-import { PrivacyData } from "../model/PrivacyData";
-import DataEditButton from "../components/general-purpose/DataEditButton";
+import { PhotoData } from "../models/PhotoData";
+import { PrivacyData } from "../models/PrivacyData";
+import DataEditButton from "../components/general/DataEditButton";
 import { MdDateRange } from "react-icons/md";
 import { FormatDate } from "../helpers/helpers";
 import { MdOutlineSecurity } from "react-icons/md";
 import { useTravelsContext } from "../context/TravelsContext";
-import CustomDatepicker from "../components/general-purpose/CustomDatepicker";
-import { StageData } from "../model/StageData";
-import { TravelData } from "../model/TravelData";
-import HorizontalDisplay from "../components/general-purpose/HorizontalDisplay";
-import LocationPicker from "../components/general-purpose/LocationPicker";
+import CustomDatepicker from "../components/general/CustomDatepicker";
+import { StageData } from "../models/StageData";
+import { TravelData } from "../models/travel/TravelData";
+import HorizontalDisplay from "../components/general/HorizontalDisplay";
+import LocationPicker from "../components/general/LocationPicker";
 import NewTravelPage from "./NewTravelPage";
 import NewStagePage from "./NewStagePage";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
-import { UserData } from "../model/UserData";
+import { UserData } from "../models/UserData";
 interface EditPageProps {
   photoData: PhotoData;
   setPhotoData: (newData: PhotoData) => void;
@@ -27,9 +27,9 @@ interface Props {
   editPage?: EditPageProps;
 }
 function NewMemoryPage({ editPage }: Props) {
-  const { AddPhoto } = useTravelsContext();
+  //const { AddPhoto } = useTravelsContext();
   const { userData } = useUserContext();
-  const { userTravels, UpdatePhoto } = useTravelsContext();
+  //const { userTravels, UpdatePhoto } = useTravelsContext();
   const [newMemory, setNewMemory] = useState<PhotoData | undefined>();
 
   const [memoryDate, setMemoryDate] = useState<Date>(new Date());
@@ -46,11 +46,11 @@ function NewMemoryPage({ editPage }: Props) {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (selectedTravel !== undefined) {
-      setSelectedTravel((prev) => userTravels.find((t) => t.id === prev?.id));
-    }
-  }, [userTravels]);
+  // useEffect(() => {
+  //   if (selectedTravel !== undefined) {
+  //     setSelectedTravel((prev) => userTravels.find((t) => t.id === prev?.id));
+  //   }
+  // }, [userTravels]);
   const handleImageUpload = async (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement & {
       files: FileList;
@@ -108,7 +108,7 @@ function NewMemoryPage({ editPage }: Props) {
 
   return (
     <>
-      {image === undefined ? (
+      {/* {image === undefined ? (
         <div className="container mx-auto min-h-[100vh] flex flex-col items-center justify-center gap-8 ">
           <h1 className=" text-2xl sm:text-5xl text-primary-900 text-center">
             Add new memory
@@ -356,7 +356,7 @@ function NewMemoryPage({ editPage }: Props) {
             </>
           )}
         </form>
-      )}
+      )} */}
     </>
   );
 }

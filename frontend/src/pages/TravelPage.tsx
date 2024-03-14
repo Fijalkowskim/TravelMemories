@@ -1,39 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTravelsContext } from "../context/TravelsContext";
-import { TravelData } from "../model/TravelData";
+import { TravelData } from "../models/travel/TravelData";
 import { FormatDate } from "../helpers/helpers";
 import { motion } from "framer-motion";
 import TravelMap from "../components/travels-page/TravelMap";
-import BackButton from "../components/general-purpose/BackButton";
-import CustomButton from "../components/general-purpose/CustomButton";
+import BackButton from "../components/general/BackButton";
+import CustomButton from "../components/general/CustomButton";
 import NewTravelPage from "./NewTravelPage";
-import HorizontalDisplay from "../components/general-purpose/HorizontalDisplay";
+import HorizontalDisplay from "../components/general/HorizontalDisplay";
 import Slideshow from "../components/travels-page/Slideshow";
 import { useUserContext } from "../context/UserContext";
-import { UserData } from "../model/UserData";
+import { UserData } from "../models/UserData";
 
 function TravelPage() {
   const { id } = useParams();
   const { userData } = useUserContext();
-  const { DeleteTravel, IsUserOwner, userTravels } = useTravelsContext();
+  //const { DeleteTravel, IsUserOwner, userTravels } = useTravelsContext();
   const navigate = useNavigate();
   const [travelData, setTravelData] = useState<TravelData | undefined>();
   const [deleteWindow, setDeleteWindow] = useState(false);
   const [editWindow, setEditWindow] = useState(false);
   const [slideshowVisible, setSlideshowVisible] = useState(false);
 
-  const fetchTravels = async () => {
-    const travel = userTravels.find((t) => t.id === Number(id));
-    if (!travel || !IsUserOwner(travel, userData)) {
-      navigate("/travels");
-      return;
-    }
-    setTravelData(travel);
-  };
-  useEffect(() => {
-    fetchTravels();
-  }, [userTravels]);
+  // const fetchTravels = async () => {
+  //   const travel = userTravels.find((t) => t.id === Number(id));
+  //   if (!travel || !IsUserOwner(travel, userData)) {
+  //     navigate("/travels");
+  //     return;
+  //   }
+  //   setTravelData(travel);
+  // };
+  // useEffect(() => {
+  //   fetchTravels();
+  // }, [userTravels]);
 
   const editTravelData = (newData: TravelData) => {
     setTravelData(newData);
@@ -45,7 +45,7 @@ function TravelPage() {
   }
   return (
     <>
-      {!editWindow ? (
+      {/* {!editWindow ? (
         <div className="relative mt-20 flex flex-col items-center bg-background-50 w-[90%] mx-auto p-2 gap-8 pb-10">
           {slideshowVisible && (
             <Slideshow
@@ -87,15 +87,15 @@ function TravelPage() {
                   <CustomButton
                     className="bg-red-400 hover:bg-red-500 w-60"
                     onClick={async () => {
-                      try {
-                        DeleteTravel(
-                          travelData.id as number,
-                          userData as UserData
-                        );
-                        navigate("/travels");
-                      } catch (error) {
-                        console.error(error);
-                      }
+                      // try {
+                      //   DeleteTravel(
+                      //     travelData.id as number,
+                      //     userData as UserData
+                      //   );
+                      //   navigate("/travels");
+                      // } catch (error) {
+                      //   console.error(error);
+                      // }
                     }}
                   >
                     Yes
@@ -175,7 +175,7 @@ function TravelPage() {
             },
           }}
         />
-      )}
+      )} */}
     </>
   );
 }

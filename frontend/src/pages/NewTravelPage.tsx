@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { TiLocation } from "react-icons/ti";
 import { MdDateRange } from "react-icons/md";
 import { FormatDate } from "../helpers/helpers";
-import DataEditButton from "../components/general-purpose/DataEditButton";
-import { TravelData } from "../model/TravelData";
-import CustomDatepicker from "../components/general-purpose/CustomDatepicker";
+import DataEditButton from "../components/general/DataEditButton";
+import { TravelData } from "../models/travel/TravelData";
+import CustomDatepicker from "../components/general/CustomDatepicker";
 import { useTravelsContext } from "../context/TravelsContext";
 import { useNavigate } from "react-router-dom";
-import LocationPicker from "../components/general-purpose/LocationPicker";
+import LocationPicker from "../components/general/LocationPicker";
 import { useUserContext } from "../context/UserContext";
-import { UserData } from "../model/UserData";
+import { UserData } from "../models/UserData";
 interface EditPageProps {
   travelData: TravelData;
   setTravelData: (newData: TravelData) => void;
@@ -24,26 +24,26 @@ function NewTravelPage({ editPage, newPhotoPage }: Props) {
   const [travelDate, setTravelDate] = useState<Date>(new Date());
   const [datepickerVisible, setDatepickerVisible] = useState(false);
   const [mapVisible, setMapVisible] = useState(false);
-  const { AddTravel, UpdateTravel } = useTravelsContext();
+  //const { AddTravel, UpdateTravel } = useTravelsContext();
   const navigate = useNavigate();
   const { userData } = useUserContext();
 
-  useEffect(() => {
-    setNewTravel(
-      editPage === undefined
-        ? {
-            id: undefined,
-            location: undefined,
-            lat: 0,
-            lng: 0,
-            description: "",
-            date: new Date(),
-            stages: [],
-            userID: userData?.id as number,
-          }
-        : editPage.travelData
-    );
-  }, []);
+  // useEffect(() => {
+  //   setNewTravel(
+  //     editPage === undefined
+  //       ? {
+  //           id: undefined,
+  //           location: undefined,
+  //           lat: 0,
+  //           lng: 0,
+  //           description: "",
+  //           date: new Date(),
+  //           stages: [],
+  //           userID: userData?.id as number,
+  //         }
+  //       : editPage.travelData
+  //   );
+  // }, []);
 
   const onLocationSelect = (lat: number, lng: number, location: string) => {
     setNewTravel(
@@ -54,7 +54,7 @@ function NewTravelPage({ editPage, newPhotoPage }: Props) {
 
   return (
     <>
-      <div
+      {/* <div
         className={`mx-auto bg-background-50 flex items-start flex-col mt-20 mb-6 p-8 gap-2 shadow-md z-20 
         ${
           newPhotoPage
@@ -162,7 +162,7 @@ function NewTravelPage({ editPage, newPhotoPage }: Props) {
           visible={datepickerVisible}
           setVisible={setDatepickerVisible}
         />
-      )}
+      )} */}
     </>
   );
 }

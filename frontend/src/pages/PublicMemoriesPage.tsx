@@ -3,19 +3,19 @@ import { useUserContext } from "../context/UserContext";
 import Navbar from "../components/navbar/Navbar";
 import MemoryCard from "../components/public-memories/MemoryCard";
 import { useTravelsContext } from "../context/TravelsContext";
-import { PrivacyData } from "../model/PrivacyData";
-import { PhotoData } from "../model/PhotoData";
+import { PrivacyData } from "../models/PrivacyData";
+import { PhotoData } from "../models/PhotoData";
 
 function PublicMemoriesPage() {
   const { isLoggedIn, userData } = useUserContext();
-  const { publicPhotos, LoadPublicPhotosTravels } = useTravelsContext();
+  // const { publicPhotos, LoadPublicPhotosTravels } = useTravelsContext();
 
-  useEffect(() => {
-    LoadPublicPhotosTravels(userData);
-  }, []);
+  // useEffect(() => {
+  //   LoadPublicPhotosTravels(userData);
+  // }, []);
   return (
     <>
-      {!isLoggedIn && <Navbar />}
+      {/* {!isLoggedIn && <Navbar />}
       <div className="w-full min-h-[100vh] flex justify-center">
         <div className="pt-20 p-8 container w-full gap-8 flex flex-wrap">
           {publicPhotos.length === 0 && (
@@ -32,7 +32,7 @@ function PublicMemoriesPage() {
             />
           ))}
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

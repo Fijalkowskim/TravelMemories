@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { TiLocation } from "react-icons/ti";
 import { MdDateRange } from "react-icons/md";
 import { FormatDate } from "../helpers/helpers";
-import DataEditButton from "../components/general-purpose/DataEditButton";
-import { TravelData } from "../model/TravelData";
-import CustomDatepicker from "../components/general-purpose/CustomDatepicker";
+import DataEditButton from "../components/general/DataEditButton";
+import { TravelData } from "../models/travel/TravelData";
+import CustomDatepicker from "../components/general/CustomDatepicker";
 import { useTravelsContext } from "../context/TravelsContext";
 import { useNavigate, useParams } from "react-router-dom";
-import LocationPicker from "../components/general-purpose/LocationPicker";
-import { StageData } from "../model/StageData";
+import LocationPicker from "../components/general/LocationPicker";
+import { StageData } from "../models/StageData";
 interface EditPageProps {
   stageData: StageData;
   travelID: number;
@@ -27,35 +27,35 @@ function NewStagePage({ editPage, newPhotoPage, defaultParentTravel }: Props) {
   const [stageDate, setStageDate] = useState<Date>(new Date());
   const [datepickerVisible, setDatepickerVisible] = useState(false);
   const [mapVisible, setMapVisible] = useState(false);
-  const { AddStage, UpdateStage, GetTravelByID } = useTravelsContext();
+  //const { AddStage, UpdateStage, GetTravelByID } = useTravelsContext();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setParentTravel(
-      defaultParentTravel
-        ? defaultParentTravel
-        : GetTravelByID(
-            editPage === undefined ? Number(travelID) : editPage.travelID
-          )
-    );
-    if (parentTravel === undefined) {
-      return;
-    }
-    setNewStage(
-      editPage === undefined
-        ? ({
-            id: undefined,
-            location: parentTravel.location,
-            lat: parentTravel.lat,
-            lng: parentTravel.lng,
-            description: "",
-            date: parentTravel.date,
-            photos: [],
-            parentTravel: parentTravel,
-          } as StageData)
-        : editPage.stageData
-    );
-  }, [GetTravelByID, editPage, parentTravel, travelID, defaultParentTravel]);
+  // useEffect(() => {
+  //   setParentTravel(
+  //     defaultParentTravel
+  //       ? defaultParentTravel
+  //       : GetTravelByID(
+  //           editPage === undefined ? Number(travelID) : editPage.travelID
+  //         )
+  //   );
+  //   if (parentTravel === undefined) {
+  //     return;
+  //   }
+  //   setNewStage(
+  //     editPage === undefined
+  //       ? ({
+  //           id: undefined,
+  //           location: parentTravel.location,
+  //           lat: parentTravel.lat,
+  //           lng: parentTravel.lng,
+  //           description: "",
+  //           date: parentTravel.date,
+  //           photos: [],
+  //           parentTravel: parentTravel,
+  //         } as StageData)
+  //       : editPage.stageData
+  //   );
+  // }, [GetTravelByID, editPage, parentTravel, travelID, defaultParentTravel]);
 
   const onLocationSelect = (lat: number, lng: number, location: string) => {
     setNewStage(
@@ -71,7 +71,7 @@ function NewStagePage({ editPage, newPhotoPage, defaultParentTravel }: Props) {
 
   return (
     <>
-      <div
+      {/* <div
         className={`mx-auto bg-background-50 flex items-start flex-col mt-20 mb-6 p-8 gap-2 shadow-md z-20 
         ${
           newPhotoPage
@@ -183,7 +183,7 @@ function NewStagePage({ editPage, newPhotoPage, defaultParentTravel }: Props) {
           setVisible={setDatepickerVisible}
           minDate={parentTravel.date}
         />
-      )}
+      )} */}
     </>
   );
 }

@@ -1,9 +1,7 @@
 import React, { ButtonHTMLAttributes, ReactNode } from "react";
 import { cn } from "../../helpers/helpers";
-import { motion } from "framer-motion";
+import { MotionProps, motion } from "framer-motion";
 import { VariantProps, cva } from "class-variance-authority";
-import { FaRegEdit } from "react-icons/fa";
-import { MdDeleteOutline } from "react-icons/md";
 
 const variants = cva(
   "flex items-center justify-center px-2 py-1 rounded-md shadow-sm transition-colors text-center mx-auto",
@@ -24,8 +22,13 @@ const variants = cva(
 );
 
 interface Props
-  extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof variants> {
+  extends Omit<
+      ButtonHTMLAttributes<HTMLButtonElement>,
+      "onDragStart" | "onAnimationStart" | "onDrag" | "onDragEnd" | "style"
+    >,
+    VariantProps<typeof variants>,
+    MotionProps {
+  parentClass?: string;
   className?: string;
   children?: ReactNode;
   rounded?: boolean;
@@ -33,6 +36,7 @@ interface Props
 }
 
 function CustomButton({
+  parentClass,
   className,
   children,
   variant,
@@ -42,33 +46,16 @@ function CustomButton({
 }: Props) {
   return (
     <motion.button
-      whileHover={disableScaleAnimation ? {} : { scale: 1.05 }}
+      {...props}
+      whileHover={disableScaleAnimation ? {} : { scale: 1.03 }}
       whileTap={disableScaleAnimation ? {} : { scale: 1.01 }}
-      className=""
+      className={cn(
+        variants({ variant, className }),
+        `${rounded ? "rounded-full" : ""}`
+      )}
     >
-      <button
-        {...props}
-        className={cn(
-          variants({ variant, className }),
-          `${rounded ? "rounded-full px-2 py-2 " : ""}`
-        )}
-      >
-        {variant === "edit" && (
-          <>
-            <p>Edit</p>
-            <FaRegEdit />
-          </>
-        )}
-        {variant === "delete" && (
-          <>
-            <p>Delete</p>
-            <MdDeleteOutline />
-          </>
-        )}
-        {children}
-      </button>
+      {children}
     </motion.button>
   );
 }
-
 export default CustomButton;

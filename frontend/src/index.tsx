@@ -5,18 +5,21 @@ import App from "./App";
 import { UserContextProvider } from "./context/UserContext";
 import { TravelsContextProvider } from "./context/TravelsContext";
 import { MapContextProvider } from "./context/MapContext";
+import { PopupContextProvider } from "./context/PopupContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <TravelsContextProvider>
-      <UserContextProvider>
-        <MapContextProvider>
-          <App />
-        </MapContextProvider>
-      </UserContextProvider>
-    </TravelsContextProvider>
+    <PopupContextProvider>
+      <TravelsContextProvider>
+        <UserContextProvider>
+          <MapContextProvider>
+            <App />
+          </MapContextProvider>
+        </UserContextProvider>
+      </TravelsContextProvider>
+    </PopupContextProvider>
   </React.StrictMode>
 );

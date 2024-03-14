@@ -1,11 +1,11 @@
 import React from "react";
-import { TravelData } from "../../model/TravelData";
+import { TravelData } from "../../models/travel/TravelData";
 import Placeholder from "../../images/placeholder.png";
 import { motion } from "framer-motion";
 import { FormatDate } from "../../helpers/helpers";
 import { NavLink } from "react-router-dom";
-import { StageData } from "../../model/StageData";
-import { PhotoData } from "../../model/PhotoData";
+import { StageData } from "../../models/StageData";
+import { PhotoData } from "../../models/PhotoData";
 interface Props<T = any> {
   travel?: TravelData;
   stage?: StageData;
@@ -39,7 +39,7 @@ function HorizontalDisplayCard({
         }
       }}
     >
-      <motion.button
+      {/* <motion.button
         className={`flex flex-col items-center p-3 shadow-md max-w-full ${
           travel !== undefined && newPhotoOnSelect === undefined
             ? "bg-background-100 w-80"
@@ -97,7 +97,7 @@ function HorizontalDisplayCard({
               : new Date()
           )}
         </p>
-      </motion.button>
+      </motion.button> */}
     </NavLink>
   );
 }

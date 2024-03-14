@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { PhotoData } from "../../model/PhotoData";
+import { PhotoData } from "../../models/PhotoData";
 import { motion, useAnimate } from "framer-motion";
 import { FormatDate } from "../../helpers/helpers";
 import Placeholder from "../../images/placeholder.png";

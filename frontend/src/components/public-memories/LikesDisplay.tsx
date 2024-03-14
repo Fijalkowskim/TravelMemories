@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PhotoData } from "../../model/PhotoData";
+import { PhotoData } from "../../models/PhotoData";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 import { motion } from "framer-motion";
@@ -12,40 +12,40 @@ interface Props {
 }
 function LikesDisplay({ photoData, className }: Props) {
   const { isLoggedIn, userData } = useUserContext();
-  const { publicPhotoTravels, LikeDislikePhoto } = useTravelsContext();
+  //const { publicPhotoTravels, LikeDislikePhoto } = useTravelsContext();
   const [likes, setLikes] = useState(photoData.likes.length);
   const [liked, setLiked] = useState(false);
 
-  const handleLikeClick = async () => {
-    if (!userData) return;
-    try {
-      const gaveLike = await LikeDislikePhoto(userData, photoData);
-      if (gaveLike) {
-        setLikes((prev) => prev + 1);
-        setLiked(true);
-      } else {
-        setLikes((prev) => prev - 1);
-        setLiked(false);
-      }
-    } catch (err) {
-      return;
-    }
-  };
-  useEffect(() => {
-    setLikes(photoData.likes.length);
-    setLiked(
-      !userData
-        ? false
-        : photoData.likes.find((like) => like === userData.id) !== undefined
-    );
-  }, [userData]);
+  // const handleLikeClick = async () => {
+  //   if (!userData) return;
+  //   try {
+  //     const gaveLike = await LikeDislikePhoto(userData, photoData);
+  //     if (gaveLike) {
+  //       setLikes((prev) => prev + 1);
+  //       setLiked(true);
+  //     } else {
+  //       setLikes((prev) => prev - 1);
+  //       setLiked(false);
+  //     }
+  //   } catch (err) {
+  //     return;
+  //   }
+  // };
+  // useEffect(() => {
+  //   setLikes(photoData.likes.length);
+  //   setLiked(
+  //     !userData
+  //       ? false
+  //       : photoData.likes.find((like) => like === userData.id) !== undefined
+  //   );
+  // }, [userData]);
 
   if (photoData === undefined) {
     return <div>No photo data</div>;
   }
   return (
     <div className={cn("flex items-center text-4xl", className)}>
-      <motion.button
+      {/* <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 1.01 }}
         onClick={(e) => {
@@ -56,7 +56,7 @@ function LikesDisplay({ photoData, className }: Props) {
       >
         {userData && liked ? <IoMdHeart /> : <IoIosHeartEmpty />}
       </motion.button>
-      <p>{likes}</p>
+      <p>{likes}</p> */}
     </div>
   );
 }

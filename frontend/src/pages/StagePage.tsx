@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTravelsContext } from "../context/TravelsContext";
-import { TravelData } from "../model/TravelData";
+import { TravelData } from "../models/travel/TravelData";
 import { FormatDate } from "../helpers/helpers";
-import { StageData } from "../model/StageData";
+import { StageData } from "../models/StageData";
 import TravelMap from "../components/travels-page/TravelMap";
-import BackButton from "../components/general-purpose/BackButton";
-import CustomButton from "../components/general-purpose/CustomButton";
+import BackButton from "../components/general/BackButton";
+import CustomButton from "../components/general/CustomButton";
 import NewStagePage from "./NewStagePage";
-import HorizontalDisplay from "../components/general-purpose/HorizontalDisplay";
+import HorizontalDisplay from "../components/general/HorizontalDisplay";
 import { useUserContext } from "../context/UserContext";
 import { disposeEmitNodes } from "typescript";
 
 function StagePage() {
   const { travelID, stageID } = useParams();
   const { userData } = useUserContext();
-  const { DeleteStage, IsUserOwner, userTravels } = useTravelsContext();
+  //const { DeleteStage, IsUserOwner, userTravels } = useTravelsContext();
   const navigate = useNavigate();
   const [stageData, setStageData] = useState<StageData | undefined>();
   const [parentTravel, setParentTravel] = useState<TravelData | undefined>();
@@ -23,20 +23,20 @@ function StagePage() {
   const [deleteWindow, setDeleteWindow] = useState(false);
   const [editWindow, setEditWindow] = useState(false);
 
-  useEffect(() => {
-    const travel = userTravels.find((travel) => travel.id === Number(travelID));
-    if (!travel) {
-      navigate("/travel");
-      return;
-    }
-    const stage = travel.stages.find((s) => s.id === Number(stageID));
-    if (!stage) {
-      navigate("/travel");
-      return;
-    }
-    setStageData(stage);
-    setParentTravel(travel);
-  }, [userTravels]);
+  // useEffect(() => {
+  //   const travel = userTravels.find((travel) => travel.id === Number(travelID));
+  //   if (!travel) {
+  //     navigate("/travel");
+  //     return;
+  //   }
+  //   const stage = travel.stages.find((s) => s.id === Number(stageID));
+  //   if (!stage) {
+  //     navigate("/travel");
+  //     return;
+  //   }
+  //   setStageData(stage);
+  //   setParentTravel(travel);
+  // }, [userTravels]);
 
   const editStageData = (newData: StageData) => {
     setStageData(newData);
@@ -48,7 +48,7 @@ function StagePage() {
   }
   return (
     <>
-      {!editWindow ? (
+      {/* {!editWindow ? (
         <div className="relative mt-20 flex flex-col items-center bg-background-50 w-[90%] mx-auto p-2 gap-8">
           <h1 className="text-3xl text-background-300">
             Stage of travel: <b>{parentTravel.location}</b>
@@ -146,7 +146,7 @@ function StagePage() {
             },
           }}
         />
-      )}
+      )} */}
     </>
   );
 }

@@ -2,21 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTravelsContext } from "../context/TravelsContext";
 import { FormatDate } from "../helpers/helpers";
-import BackButton from "../components/general-purpose/BackButton";
-import CustomButton from "../components/general-purpose/CustomButton";
-import { PhotoData } from "../model/PhotoData";
+import BackButton from "../components/general/BackButton";
+import CustomButton from "../components/general/CustomButton";
+import { PhotoData } from "../models/PhotoData";
 import LikesDisplay from "../components/public-memories/LikesDisplay";
 import { useUserContext } from "../context/UserContext";
 import NewMemoryPage from "./NewMemoryPage";
-import { PrivacyData } from "../model/PrivacyData";
-import { TravelData } from "../model/TravelData";
+import { PrivacyData } from "../models/PrivacyData";
+import { TravelData } from "../models/travel/TravelData";
 interface Props {
   discover?: boolean;
 }
 function MemoryPage({ discover }: Props) {
   const { travelID, stageID, memoryID } = useParams();
-  const { GetPhoto, DeletePhoto, IsUserOwner, UpdatePhoto } =
-    useTravelsContext();
+  //const { GetPhoto, DeletePhoto, IsUserOwner, UpdatePhoto } =
+  useTravelsContext();
   const { userData } = useUserContext();
   const navigate = useNavigate();
   const [photoData, setPhotoData] = useState<PhotoData>();
@@ -24,33 +24,33 @@ function MemoryPage({ discover }: Props) {
   const [deleteWindow, setDeleteWindow] = useState(false);
   const [editWindow, setEditWindow] = useState(false);
 
-  useEffect(() => {
-    const photo = GetPhoto(
-      discover === undefined ? false : discover,
-      Number(travelID),
-      Number(stageID),
-      Number(memoryID)
-    );
+  // useEffect(() => {
+  //   const photo = GetPhoto(
+  //     discover === undefined ? false : discover,
+  //     Number(travelID),
+  //     Number(stageID),
+  //     Number(memoryID)
+  //   );
 
-    if (photo === undefined) {
-      navigate("/");
-    } else {
-      setPhotoData(photo);
-    }
-  }, [GetPhoto, memoryID, navigate, stageID, travelID]);
+  //   if (photo === undefined) {
+  //     navigate("/");
+  //   } else {
+  //     setPhotoData(photo);
+  //   }
+  // }, [GetPhoto, memoryID, navigate, stageID, travelID]);
 
-  const editPhotoData = (newData: PhotoData) => {
-    setPhotoData(newData);
-    UpdatePhoto(newData);
-    setEditWindow(false);
-  };
+  // const editPhotoData = (newData: PhotoData) => {
+  //   setPhotoData(newData);
+  //   UpdatePhoto(newData);
+  //   setEditWindow(false);
+  // };
 
   if (photoData === undefined || !photoData.parentStage) {
     return <p>Photo is not available</p>;
   }
   return (
     <>
-      {!editWindow ? (
+      {/* {!editWindow ? (
         <div className="relative mt-20 flex flex-col items-center bg-background-50 w-[90%] mx-auto p-4 gap-8">
           <BackButton
             navigateTo={
@@ -173,7 +173,7 @@ function MemoryPage({ discover }: Props) {
             },
           }}
         />
-      )}
+      )} */}
     </>
   );
 }

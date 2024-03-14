@@ -19,11 +19,12 @@ function LoginPage() {
   };
   const checkLogin = async () => {
     try {
-      const response = await api.get(
-        `/user/checkPassword?email=${username}&password=${password}`
+      const response = await api.post(
+        `/user/login?email=${username}&password=${password}`
       );
-      if (response.status === 200) {
-        const id: Number = response.data.content[0].id as Number;
+      console.log(response);
+      if (response.data) {
+        const id: number = response.data.id as number;
         if (id === undefined) {
           setErrorMsg("No such user in database");
           return;
@@ -31,7 +32,7 @@ function LoginPage() {
         LogIn({
           email: username,
           password: password,
-          id: response.data.content[0].id,
+          id: id,
         });
       } else {
         setErrorMsg("Email or password incorrect");
