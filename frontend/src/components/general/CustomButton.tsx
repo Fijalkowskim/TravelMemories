@@ -8,7 +8,7 @@ const variants = cva(
   {
     variants: {
       variant: {
-        default: "bg-secondary-100 hover:bg-secondary-200",
+        default: "bg-action-400 hover:bg-action-500 text-background-50",
         action: "bg-action-200 hover:bg-action-300",
         actionDark: "bg-action-300 hover:bg-action-400",
         edit: "bg-action-200 hover:bg-action-300 gap-1 rounded-full px-3",
