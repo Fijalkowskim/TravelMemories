@@ -13,7 +13,7 @@ function HomePage() {
   }, [LoginCookies]);
 
   return (
-    <div className="gap-32 sm:gap-60 xl:gap-0 mx-auto h-[100vh] flex flex-col-reverse xl:flex-row items-center justify-center xl:justify-between px-4 sm:px-0 py-8 overflow-hidden bg-gradient-to-br from-background-50 to-background-300/50">
+    <div className="gap-20 sm:mt-0 mt-10 sm:gap-60 xl:gap-0 mx-auto h-[100vh] flex flex-col-reverse xl:flex-row items-center xl:justify-between px-4 sm:px-0 py-8 overflow-hidden bg-gradient-to-br from-background-50 to-background-300/50">
       <ImageCarousel />
       <HomePageBanner />
     </div>
