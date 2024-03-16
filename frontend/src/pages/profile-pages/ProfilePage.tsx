@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import placeholder from "../images/placeholder.png";
-import CustomButton from "../components/general/CustomButton";
-import { useUserContext } from "../context/UserContext";
-import LoginPopup from "../components/login/loginPopup";
+import CustomButton from "../../components/general/CustomButton";
+import { useUserContext } from "../../context/UserContext";
+import LoginPopup from "../../components/login/loginPopup";
 import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 function ProfilePage() {

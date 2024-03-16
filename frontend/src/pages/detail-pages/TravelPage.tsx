@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useTravelsContext } from "../context/TravelsContext";
-import { TravelData } from "../models/travel/TravelData";
-import { FormatDate } from "../helpers/helpers";
+import { useTravelsContext } from "../../context/TravelsContext";
+import { TravelData } from "../../models/travel/TravelData";
+import { FormatDate } from "../../helpers/helpers";
 import { motion } from "framer-motion";
-import TravelMap from "../components/travels-page/TravelMap";
-import BackButton from "../components/general/BackButton";
-import CustomButton from "../components/general/CustomButton";
-import NewTravelPage from "./NewTravelPage";
-import HorizontalDisplay from "../components/general/HorizontalDisplay";
-import Slideshow from "../components/travels-page/Slideshow";
-import { useUserContext } from "../context/UserContext";
-import { UserData } from "../models/UserData";
+import TravelMap from "../../components/travels-page/TravelMap";
+import BackButton from "../../components/general/BackButton";
+import CustomButton from "../../components/general/CustomButton";
+import NewTravelPage from "../create-pages/NewTravelPage";
+import HorizontalDisplay from "../../components/general/HorizontalDisplay";
+import Slideshow from "../../components/travels-page/Slideshow";
+import { useUserContext } from "../../context/UserContext";
+import { UserData } from "../../models/UserData";
 
 function TravelPage() {
   const { id } = useParams();

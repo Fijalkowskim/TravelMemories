@@ -30,7 +30,7 @@ export const useNavbarLinks = () => {
   const [navbarLinks, setNavbarLinks] = useState<NavbarLinkProps[]>([]);
 
   useEffect(() => {
-    setNavbarLinks(!isLoggedIn ? loggedLinks : unloggedLinks);
+    setNavbarLinks(isLoggedIn ? loggedLinks : unloggedLinks);
   }, [isLoggedIn, setNavbarLinks]);
 
   return { navbarLinks };

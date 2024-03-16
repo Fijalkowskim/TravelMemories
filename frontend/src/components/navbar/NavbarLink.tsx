@@ -4,6 +4,7 @@ import { cn } from "../../helpers/helpers";
 import CustomButton from "../general/CustomButton";
 import { NavLink, useLocation } from "react-router-dom";
 import { NavbarLinkProps } from "./NavbarLinkProps";
+import { transform } from "typescript";
 
 function NavbarLink(data: NavbarLinkProps) {
   const { pathname } = useLocation();
@@ -16,12 +17,18 @@ function NavbarLink(data: NavbarLinkProps) {
       <motion.button
         className={cn(
           `group ${
-            data.button ? "text-primary-950" : " text-primary-700/80"
+            data.button
+              ? "text-primary-950"
+              : " text-primary-700/80 hover:text-primary-900 transition-none"
           }  relative w-fit flex-shrink-0 cursor-pointer transition-all ${
             active && "text-primary-950"
           }  `,
           data.className
         )}
+        initial={{ scale: 1 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 1.03 }}
+        transition={{ duration: 0.01 }}
       >
         {data.button ? (
           <CustomButton
@@ -38,7 +45,7 @@ function NavbarLink(data: NavbarLinkProps) {
                 ${
                   active
                     ? "scale-100 bg-primary-950/70"
-                    : "group-hover:scale-100 scale-0 bg-primary-700/50"
+                    : "group-hover:scale-100 scale-0 bg-primary-950/70"
                 }`}
             ></div>
           </>

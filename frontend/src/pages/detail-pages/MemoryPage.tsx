@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useTravelsContext } from "../context/TravelsContext";
-import { FormatDate } from "../helpers/helpers";
-import BackButton from "../components/general/BackButton";
-import CustomButton from "../components/general/CustomButton";
-import { PhotoData } from "../models/PhotoData";
-import LikesDisplay from "../components/public-memories/LikesDisplay";
-import { useUserContext } from "../context/UserContext";
-import NewMemoryPage from "./NewMemoryPage";
-import { PrivacyData } from "../models/PrivacyData";
-import { TravelData } from "../models/travel/TravelData";
+import { useTravelsContext } from "../../context/TravelsContext";
+import { FormatDate } from "../../helpers/helpers";
+import BackButton from "../../components/general/BackButton";
+import CustomButton from "../../components/general/CustomButton";
+import { PhotoData } from "../../models/PhotoData";
+import LikesDisplay from "../../components/public-memories/LikesDisplay";
+import { useUserContext } from "../../context/UserContext";
+import NewMemoryPage from "../create-pages/NewMemoryPage";
+import { PrivacyData } from "../../models/PrivacyData";
+import { TravelData } from "../../models/travel/TravelData";
 interface Props {
   discover?: boolean;
 }

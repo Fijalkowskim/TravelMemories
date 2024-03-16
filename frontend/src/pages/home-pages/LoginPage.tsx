@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { SlGlobe } from "react-icons/sl";
 import { motion } from "framer-motion";
-import { useUserContext } from "../context/UserContext";
-import LoginPopup from "../components/login/loginPopup";
+import { useUserContext } from "../../context/UserContext";
+import LoginPopup from "../../components/login/loginPopup";
 import { FaEye } from "react-icons/fa";
-import api from "../api/api";
+import api from "../../api/api";
 import axios from "axios";
 function LoginPage() {
   const { LogIn } = useUserContext();

@@ -9,7 +9,10 @@ export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
 };
 
-export const FormatLikes = (likes: number ) : string=>{
-  return likes >= 1000000 ? (Math.round(likes/1000000*10)/10).toString() + "M" : 
-  likes >= 1000 ? (Math.round(likes/1000*10)/10).toString() + "K" : likes.toString();
-}
+export const FormatLikes = (likes: number): string => {
+  return likes >= 1000000
+    ? (Math.round((likes / 1000000) * 10) / 10).toString() + "M"
+    : likes >= 1000
+    ? (Math.round((likes / 1000) * 10) / 10).toString() + "K"
+    : likes.toString();
+};

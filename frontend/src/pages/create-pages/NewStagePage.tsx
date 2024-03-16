@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { TiLocation } from "react-icons/ti";
 import { MdDateRange } from "react-icons/md";
-import { FormatDate } from "../helpers/helpers";
-import DataEditButton from "../components/general/DataEditButton";
-import { TravelData } from "../models/travel/TravelData";
-import CustomDatepicker from "../components/general/CustomDatepicker";
-import { useTravelsContext } from "../context/TravelsContext";
+import { FormatDate } from "../../helpers/helpers";
+import DataEditButton from "../../components/general/DataEditButton";
+import { TravelData } from "../../models/travel/TravelData";
+import CustomDatepicker from "../../components/general/CustomDatepicker";
+import { useTravelsContext } from "../../context/TravelsContext";
 import { useNavigate, useParams } from "react-router-dom";
-import LocationPicker from "../components/general/LocationPicker";
-import { StageData } from "../models/StageData";
+import LocationPicker from "../../components/general/LocationPicker";
+import { StageData } from "../../models/StageData";
 interface EditPageProps {
   stageData: StageData;
   travelID: number;

@@ -1,19 +1,19 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
-import YourMemoriesPage from "./pages/YourTravelsPage";
-import PublicMemoriesPage from "./pages/PublicMemoriesPage";
-import ProfilePage from "./pages/ProfilePage";
+import YourMemoriesPage from "./pages/profile-pages/YourTravelsPage";
+import PublicMemoriesPage from "./pages/public-pages/PublicMemoriesPage";
+import ProfilePage from "./pages/profile-pages/ProfilePage";
 import { useUserContext } from "./context/UserContext";
-import HomePage from "./pages/HomePage";
-import NewMemoryPage from "./pages/NewMemoryPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import TravelPage from "./pages/TravelPage";
-import NewTravelPage from "./pages/NewTravelPage";
-import StagePage from "./pages/StagePage";
-import NewStagePage from "./pages/NewStagePage";
-import MemoryPage from "./pages/MemoryPage";
+import HomePage from "./pages/home-pages/HomePage";
+import NewMemoryPage from "./pages/create-pages/NewMemoryPage";
+import LoginPage from "./pages/home-pages/LoginPage";
+import RegisterPage from "./pages/home-pages/RegisterPage";
+import TravelPage from "./pages/detail-pages/TravelPage";
+import NewTravelPage from "./pages/create-pages/NewTravelPage";
+import StagePage from "./pages/detail-pages/StagePage";
+import NewStagePage from "./pages/create-pages/NewStagePage";
+import MemoryPage from "./pages/detail-pages/MemoryPage";
 
 function App() {
   const { isLoggedIn } = useUserContext();
