@@ -7,7 +7,7 @@ function YourTravelsPage() {
   const { travels } = useUserTravels();
   return (
     <PageWrapper alignColStart>
-      <div className=" px-4 lg:px-20 py-4 ">
+      <div className="w-full">
         <HorizontalDisplay travels={travels} />
       </div>
     </PageWrapper>

@@ -38,12 +38,15 @@ export function PopupContextProvider({ children }: PopupContextProviderProps) {
       { message: message, type: type, id: newId },
     ]);
     if (timeout) {
+      if (timeout <= 0) timeout = 3000;
       setTimeout(() => {
         setMessages((prev) => prev.filter((mess) => mess.id !== newId));
       }, timeout);
     }
   };
-  const removeMessage = (id: number) => {};
+  const removeMessage = (id: number) => {
+    setMessages((prev) => prev.filter((m) => m.id !== id));
+  };
   return (
     <PopupContext.Provider
       value={{

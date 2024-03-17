@@ -14,11 +14,13 @@ import NewTravelPage from "./pages/create-pages/NewTravelPage";
 import StagePage from "./pages/detail-pages/StagePage";
 import NewStagePage from "./pages/create-pages/NewStagePage";
 import MemoryPage from "./pages/detail-pages/MemoryPage";
+import PopupController from "./components/popup/PopupController";
 
 function App() {
   const { isLoggedIn } = useUserContext();
   return (
     <div className="relative">
+      <PopupController />
       <BrowserRouter>
         {isLoggedIn && <Navbar />}
         <Routes>
