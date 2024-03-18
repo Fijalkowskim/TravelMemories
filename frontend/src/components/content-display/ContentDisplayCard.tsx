@@ -1,5 +1,5 @@
 import React from "react";
-import { TravelData } from "../../models/travel/TravelData";
+import { TravelData } from "../../models/travel-part/travel/TravelData";
 import Placeholder from "../../images/placeholder.png";
 import { motion } from "framer-motion";
 import { FormatDate } from "../../helpers/helpers";
@@ -12,7 +12,7 @@ interface Props<T = any> {
   photo?: PhotoData;
   newPhotoOnSelect?: (data: T) => void;
 }
-function HorizontalDisplayCard({
+function ContentDisplayCard({
   travel,
   stage,
   photo,
@@ -102,4 +102,4 @@ function HorizontalDisplayCard({
   );
 }
 
-export default HorizontalDisplayCard;
+export default ContentDisplayCard;

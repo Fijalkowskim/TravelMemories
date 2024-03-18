@@ -3,7 +3,7 @@ import { TiLocation } from "react-icons/ti";
 import { MdDateRange } from "react-icons/md";
 import { FormatDate } from "../../helpers/helpers";
 import DataEditButton from "../../components/general/DataEditButton";
-import { TravelData } from "../../models/travel/TravelData";
+import { TravelData } from "../../models/travel-part/travel/TravelData";
 import CustomDatepicker from "../../components/general/CustomDatepicker";
 import { useTravelsContext } from "../../context/TravelsContext";
 import { useNavigate, useParams } from "react-router-dom";

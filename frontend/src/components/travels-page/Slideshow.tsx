@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { TravelData } from "../../models/travel/TravelData";
+import { TravelData } from "../../models/travel-part/travel/TravelData";
 import {
   AnimatePresence,
   AnimationSequence,

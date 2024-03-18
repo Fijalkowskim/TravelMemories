@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { TravelData } from "../models/travel/TravelData";
+import { TravelData } from "../models/travel-part/travel/TravelData";
 import ExampleTravels from "../examples/ExampleTravels";
 import { StageData } from "../models/StageData";
 import { PhotoData } from "../models/PhotoData";
@@ -15,9 +15,9 @@ import api from "../api/api";
 import { UserData } from "../models/UserData";
 import Placeholder from "../images/placeholder.png";
 import { usePopupContext } from "./PopupContext";
-import { TravelsPageData } from "../models/travel/TravelsPageData";
+import { TravelsPageData } from "../models/travel-part/travel/TravelsPageData";
 import { TravelResponseToTravelData } from "../converters/TravelConverter";
-import { TravelResponse } from "../models/travel/TravelResponse";
+import { TravelResponse } from "../models/travel-part/travel/TravelResponse";
 import { PopupMessageType } from "../models/popups/PopupMessageType";
 
 interface TravelsContextProviderProps {
@@ -86,7 +86,6 @@ export function TravelsContextProvider({
         ${pageSize ? `pageSize=${pageSize}&` : ""}
         ${sort ? `sort=${sort}` : ""}`
       );
-      console.log(res);
       if (res.data) {
         travelsPageData.travels = res.data.content.map(
           (entry: TravelResponse) => {

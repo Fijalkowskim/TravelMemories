@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTravelsContext } from "../../context/TravelsContext";
-import { TravelData } from "../../models/travel/TravelData";
+import { TravelData } from "../../models/travel-part/travel/TravelData";
 import { FormatDate } from "../../helpers/helpers";
 import { StageData } from "../../models/StageData";
 import TravelMap from "../../components/travels-page/TravelMap";
 import BackButton from "../../components/general/BackButton";
 import CustomButton from "../../components/general/CustomButton";
 import NewStagePage from "../create-pages/NewStagePage";
-import HorizontalDisplay from "../../components/general/HorizontalDisplay";
+import ContentDisplay from "../../components/content-display/ContentDisplay";
 import { useUserContext } from "../../context/UserContext";
 import { disposeEmitNodes } from "typescript";
 

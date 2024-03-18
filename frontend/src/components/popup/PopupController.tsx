@@ -5,10 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { PopupMessageType } from "../../models/popups/PopupMessageType";
 
 function PopupController() {
-  const { messages, addMessage } = usePopupContext();
-  useEffect(() => {
-    addMessage("a", PopupMessageType.ERROR, 3000);
-  }, []);
+  const { messages} = usePopupContext();
 
   return (
     <motion.ul

@@ -4,10 +4,10 @@ import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { StageData } from "../../models/StageData";
-import { TravelData } from "../../models/travel/TravelData";
+import { TravelData } from "../../models/travel-part/travel/TravelData";
 import { PhotoData } from "../../models/PhotoData";
-import HorizontalDisplayCard from "./HorizontalDisplayCard";
-import CustomButton from "./CustomButton";
+import ContentDisplayCard from "./ContentDisplayCard";
+import CustomButton from "../general/CustomButton";
 
 interface Props<T = any> {
   travels?: TravelData[];
@@ -20,7 +20,7 @@ interface Props<T = any> {
   newPhotoCreatingNew?: React.Dispatch<React.SetStateAction<boolean>>;
   newPhotoBackButton?: () => void;
 }
-function HorizontalDisplay({
+function ContentDisplay({
   travels,
   stages,
   photos,
@@ -96,7 +96,7 @@ function HorizontalDisplay({
             <p className="text-3xl">You don't have any travels yet.</p>
           ) : (
             travels.map((travel) => (
-              <HorizontalDisplayCard
+              <ContentDisplayCard
                 travel={travel}
                 newPhotoOnSelect={newPhotoOnSelect}
               />
@@ -110,7 +110,7 @@ function HorizontalDisplay({
             <p className="text-3xl">You don't have any stages yet.</p>
           ) : (
             stages.map((stage) => (
-              <HorizontalDisplayCard
+              <ContentDisplayCard
                 stage={stage}
                 newPhotoOnSelect={newPhotoOnSelect}
               />
@@ -124,7 +124,7 @@ function HorizontalDisplay({
             <p className="text-3xl">You don't have any photos yet.</p>
           ) : (
             photos.map((photo) => (
-              <HorizontalDisplayCard
+              <ContentDisplayCard
                 photo={photo}
                 newPhotoOnSelect={newPhotoOnSelect}
               />
@@ -136,4 +136,4 @@ function HorizontalDisplay({
   );
 }
 
-export default HorizontalDisplay;
+export default ContentDisplay;

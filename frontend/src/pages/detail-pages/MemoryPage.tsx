@@ -9,7 +9,7 @@ import LikesDisplay from "../../components/public-memories/LikesDisplay";
 import { useUserContext } from "../../context/UserContext";
 import NewMemoryPage from "../create-pages/NewMemoryPage";
 import { PrivacyData } from "../../models/PrivacyData";
-import { TravelData } from "../../models/travel/TravelData";
+import { TravelData } from "../../models/travel-part/travel/TravelData";
 interface Props {
   discover?: boolean;
 }

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { UserData } from "../models/UserData";
 import { useUserContext } from "../context/UserContext";
 import { useTravelsContext } from "../context/TravelsContext";
-import { TravelData } from "../models/travel/TravelData";
+import { TravelData } from "../models/travel-part/travel/TravelData";
 import { usePopupContext } from "../context/PopupContext";
 import { PopupMessageType } from "../models/popups/PopupMessageType";
 

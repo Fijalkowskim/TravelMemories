@@ -1,5 +1,5 @@
-import { TravelData } from "../models/travel/TravelData";
-import { TravelResponse } from "../models/travel/TravelResponse";
+import { TravelData } from "../models/travel-part/travel/TravelData";
+import { TravelResponse } from "../models/travel-part/travel/TravelResponse";
 import Placeholder from "../images/placeholder.png";
 export const TravelResponseToTravelData = (
   travelResponse: TravelResponse
@@ -15,7 +15,8 @@ export const TravelResponseToTravelData = (
   const travelData: TravelData = {
     ...travelResponse,
     thumbnail: imageSource,
-    travelDate: new Date(travelResponse.travelDate),
+    date: new Date(travelResponse.travelDate),
+    type: "travel"
   };
   return travelData;
 };

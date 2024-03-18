@@ -8,7 +8,7 @@
 // import CartagenaProvince1 from "../images/CartagenaProvince1.jpg";
 // import CartagenaProvince2 from "../images/CartagenaProvince2.jpg";
 
-import { TravelData } from "../models/travel/TravelData";
+import { TravelData } from "../models/travel-part/travel/TravelData";
 
 // const ExampleTravels: TravelData[] = [
 //   {

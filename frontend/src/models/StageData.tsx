@@ -1,5 +1,5 @@
 import { PhotoData } from "./PhotoData";
-import { TravelData } from "./travel/TravelData";
+import { TravelData } from "./travel-part/travel/TravelData";
 
 export interface StageData {
   id: number | undefined;

@@ -1,14 +1,16 @@
 import React from "react";
-import HorizontalDisplay from "../../components/general/HorizontalDisplay";
+import ContentDisplay from "../../components/content-display/ContentDisplay";
 import { useUserTravels } from "../../hooks/useUserTravels";
 import PageWrapper from "../PageWrapper";
+import TravelPartDisplay from "../../components/travel-part-display/TravelPartDisplay";
 
 function YourTravelsPage() {
   const { travels } = useUserTravels();
   return (
     <PageWrapper alignColStart>
       <div className="w-full">
-        <HorizontalDisplay travels={travels} />
+        {/* <ContentDisplay travels={travels} /> */}
+        <TravelPartDisplay data={travels}/>
       </div>
     </PageWrapper>
   );
