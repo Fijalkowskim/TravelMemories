@@ -14,10 +14,10 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class UserService {
+public class AuthenticateService {
     private final UserDAORepository userDAORepository;
     @Autowired
-    public UserService(UserDAORepository userDAORepository) {
+    public AuthenticateService(UserDAORepository userDAORepository) {
         this.userDAORepository = userDAORepository;
     }
     public User authenticate(String email,String password) throws CustomHTTPException {

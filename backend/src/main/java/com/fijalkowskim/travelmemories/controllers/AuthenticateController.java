@@ -7,15 +7,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.fijalkowskim.travelmemories.models.users.User;
-import com.fijalkowskim.travelmemories.services.UserService;
+import com.fijalkowskim.travelmemories.services.AuthenticateService;
 
 @Controller
-@RequestMapping( value = "/api/user")
+@RequestMapping( value = "/api/public/authenticate")
 @CrossOrigin("http://localhost:3000")
-public class UserController {
-    private final UserService userService;
+public class AuthenticateController {
+    private final AuthenticateService userService;
     @Autowired
-    public UserController(UserService userService){
+    public AuthenticateController(AuthenticateService userService){
         this.userService = userService;
     }
 
