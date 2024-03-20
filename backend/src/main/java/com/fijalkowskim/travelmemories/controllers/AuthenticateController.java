@@ -12,7 +12,7 @@ import com.fijalkowskim.travelmemories.models.users.User;
 import com.fijalkowskim.travelmemories.services.UserService;
 
 @Controller
-@RequestMapping( value = "/api/user")
+@RequestMapping( value = "/api/public/authenticate")
 @CrossOrigin("http://localhost:3000")
 public class AuthenticateController {
     private final AuthenticateService authenticateService;
