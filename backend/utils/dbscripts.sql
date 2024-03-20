@@ -12,9 +12,10 @@ DROP TABLE IF EXISTS likes;
 SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE users (
-                      id INT PRIMARY KEY AUTO_INCREMENT,
-                      email VARCHAR(50) NOT NULL UNIQUE,
-                      password_hash VARCHAR(60) NOT NULL
+                       id INT PRIMARY KEY AUTO_INCREMENT,
+                       email VARCHAR(50) NOT NULL UNIQUE,
+                       password_hash VARCHAR(60) NOT NULL,
+                       role VARCHAR(20)
 );
 
 CREATE TABLE travels (
@@ -73,31 +74,31 @@ ALTER TABLE stages
     ADD CONSTRAINT fk_stage_thumbnail_id
         FOREIGN KEY (thumbnail_id) REFERENCES photos(id);
 
-INSERT INTO users (email, password_hash) VALUES
-                                                  ('user1@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user2@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user3@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user4@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user5@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user6@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user7@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user8@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user9@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user10@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user11@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user12@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user13@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user14@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user15@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user16@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user17@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user18@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user19@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user20@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user21@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user22@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user23@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC'),
-                                                  ('user24@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC');
+INSERT INTO users (email, password_hash,role) VALUES
+                                                  ('user1@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user2@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user3@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user4@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user5@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user6@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user7@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user8@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user9@email.com', '$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user10@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user11@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user12@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user13@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user14@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user15@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user16@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user17@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user18@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user19@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user20@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user21@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user22@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user23@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER'),
+                                                  ('user24@email.com','$2a$12$.rGPxnOz7bXmI5gjK3D.auzcwe3FXdGD7010TDWkViiqC6rTW8JhC','USER');
 
 INSERT INTO travels (user_id, location_name, description, travel_date, latitude, longitude)
 VALUES

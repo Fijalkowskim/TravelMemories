@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.fijalkowskim.travelmemories.models.users.User;
 
+import java.util.Optional;
+
 public interface UserDAORepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT COUNT(*) FROM User WHERE email = :email AND password_hash = :password", nativeQuery = true)
     public int checkPassword(@Param("email") String email, @Param("password") String password);
@@ -18,7 +20,6 @@ public interface UserDAORepository extends JpaRepository<User, Long> {
     @Query(value = "UPDATE User u SET u.passwordHash = :newPasswordHash WHERE u.email = :email")
     public void updatePasswordHashForUser(@Param("email") String email, @Param("newPasswordHash") String newPasswordHash);
 
-    public Page<User> findByEmail(String email, Pageable pageable);
-    public User findByEmail(String email);
+    public Optional<User> findByEmail(String email);
 }
 

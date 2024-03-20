@@ -1,6 +1,7 @@
 package com.fijalkowskim.travelmemories.services;
 
 import com.fijalkowskim.travelmemories.exceptions.CustomHTTPException;
+import com.fijalkowskim.travelmemories.models.users.UserRole;
 import com.fijalkowskim.travelmemories.repositories.UserDAORepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,7 @@ public class UserService {
         User user = new User();
         user.setEmail(email);
         user.setPasswordHash(encoder.encode(password));
+        user.setRole(UserRole.USER);
         return userDAORepository.save(user);
     }
     public void changePassword(String email,String oldPassword, String newPassword) throws CustomHTTPException{
