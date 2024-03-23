@@ -28,7 +28,7 @@ function ProfilePage() {
   const navigate = useNavigate();
   return (
     <div className="relative flex flex-col justify-center items-center w-full h-[100vh] text-2xl">
-      {/* <div className="bg-background-50 p-4 px-20 flex flex-col items-center justify-center gap-4 rounded-md shadow-md">
+      <div className="bg-background-50 p-4 px-20 flex flex-col items-center justify-center gap-4 rounded-md shadow-md">
         <h1 className="text-5xl">Your account</h1>
         <p className="">{userData?.email}</p>
         <CustomButton
@@ -78,10 +78,10 @@ function ProfilePage() {
                 setErrorMsg("Enter new password");
                 return;
               }
-              if (password !== userData?.password) {
-                setErrorMsg("Wrong password");
-                return;
-              }
+              // if (password !== userData?.password) {
+              //   setErrorMsg("Wrong password");
+              //   return;
+              // }
               if (newPassword === password) {
                 setErrorMsg("New password must be different");
                 return;
@@ -214,15 +214,15 @@ function ProfilePage() {
             <div className="ml-auto w-fit flex items-center gap-4 mt-4 text-lg">
               <CustomButton
                 className="bg-red-400 hover:bg-red-500"
-                onClick={() => {
-                  if (password !== userData?.password) {
-                    setErrorMsg("Password incorrect");
-                    return;
-                  }
-                  clearMsg();
-                  DeleteAccount();
-                  navigate("/");
-                }}
+                // onClick={() => {
+                //   if (password !== userData?.password) {
+                //     setErrorMsg("Password incorrect");
+                //     return;
+                //   }
+                //   clearMsg();
+                //   DeleteAccount();
+                //   navigate("/");
+                // }}
               >
                 Delete
               </CustomButton>
@@ -239,7 +239,7 @@ function ProfilePage() {
             </div>
           </div>
         </div>
-      )} */}
+      )}
     </div>
   );
 }
