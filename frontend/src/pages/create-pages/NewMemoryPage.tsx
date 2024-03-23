@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { TiLocation } from "react-icons/ti";
 import { FaMap } from "react-icons/fa";
 import { PhotoData } from "../../models/travel-part/photo/PhotoData";
-import { PrivacyData } from "../../models/travel-part/photo/PrivacyData";
+import { PrivacyData } from "../../models/travel-part/PrivacyData";
 import DataEditButton from "../../components/general/DataEditButton";
 import { MdDateRange } from "react-icons/md";
 import { FormatDate } from "../../helpers/helpers";

@@ -28,7 +28,7 @@ function ProfilePage() {
   const navigate = useNavigate();
   return (
     <div className="relative flex flex-col justify-center items-center w-full h-[100vh] text-2xl">
-      <div className="bg-background-50 p-4 px-20 flex flex-col items-center justify-center gap-4 rounded-md shadow-md">
+      {/* <div className="bg-background-50 p-4 px-20 flex flex-col items-center justify-center gap-4 rounded-md shadow-md">
         <h1 className="text-5xl">Your account</h1>
         <p className="">{userData?.email}</p>
         <CustomButton
@@ -239,7 +239,7 @@ function ProfilePage() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

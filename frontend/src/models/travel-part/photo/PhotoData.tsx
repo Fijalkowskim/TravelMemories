@@ -1,4 +1,4 @@
-import { PrivacyData } from "./PrivacyData";
+import { PrivacyData } from "../PrivacyData";
 import { StageData } from "../stage/StageData";
 
 export interface PhotoData {

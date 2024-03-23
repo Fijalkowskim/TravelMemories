@@ -3,7 +3,6 @@ import { useUserContext } from "../../context/UserContext";
 import Navbar from "../../components/navbar/Navbar";
 import MemoryCard from "../../components/public-memories/MemoryCard";
 import { useTravelsContext } from "../../context/TravelsContext";
-import { PrivacyData } from "../../models/travel-part/photo/PrivacyData";
 import { PhotoData } from "../../models/travel-part/photo/PhotoData";
 
 function PublicMemoriesPage() {

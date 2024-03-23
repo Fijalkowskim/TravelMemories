@@ -10,7 +10,6 @@ import { TravelData } from "../models/travel-part/travel/TravelData";
 import ExampleTravels from "../examples/ExampleTravels";
 import { StageData } from "../models/travel-part/stage/StageData";
 import { PhotoData } from "../models/travel-part/photo/PhotoData";
-import { PrivacyData } from "../models/travel-part/photo/PrivacyData";
 import api from "../api/api";
 import { UserData } from "../models/user/UserData";
 import Placeholder from "../images/placeholder.png";

@@ -130,8 +130,8 @@ function RegisterPage() {
               return;
             }
             clearMsg();
-            const created = await CreateUser(email, password);
-            if (!created) setErrorMsg("User with this email already exists");
+            // const created = await CreateUser(email, password);
+            // if (!created) setErrorMsg("User with this email already exists");
           }}
         >
           Register
