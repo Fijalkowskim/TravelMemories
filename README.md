@@ -1,6 +1,6 @@
 # Travel Memories
 
-Welcome to the "Travel Memories" repository! This is a web application designed to capture and share your unforgettable travel experiences. The application features a robust frontend built with React, TypeScript, Tailwind CSS, Framer Motion, and a powerful backend developed using Spring Boot, complemented by a MySQL database.
+Welcome to the "Travel Memories" repository! This is a web application designed to capture and share your unforgettable travel experiences. The application features a robust frontend built with React, TypeScript, Tailwind CSS, Framer Motion, and a powerful backend developed using Spring Boot with fully secured endpoints complemented by a MySQL database.
 
 
 ![homepage](https://github.com/Fijalkowskim/TravelMemories/assets/91847461/7a263ba3-eb56-4732-9d4d-e56fdd521157)
@@ -18,6 +18,7 @@ Welcome to the "Travel Memories" repository! This is a web application designed 
 
 ### User Authentication and Account Management
 - Users can create accounts, log in, and securely manage their profiles.
+- Fully complete authorization using jwt tokens.
 - Account deletion functionality is available for users who wish to remove their accounts.
 
 ### Journey Creation and Stage Management
