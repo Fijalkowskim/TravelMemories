@@ -8,7 +8,7 @@ import CustomDatepicker from "../../components/general/CustomDatepicker";
 import { useTravelsContext } from "../../context/TravelsContext";
 import { useNavigate, useParams } from "react-router-dom";
 import LocationPicker from "../../components/general/LocationPicker";
-import { StageData } from "../../models/StageData";
+import { StageData } from "../../models/travel-part/stage/StageData";
 interface EditPageProps {
   stageData: StageData;
   travelID: number;

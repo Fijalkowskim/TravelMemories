@@ -9,7 +9,7 @@ import { useTravelsContext } from "../../context/TravelsContext";
 import { useNavigate } from "react-router-dom";
 import LocationPicker from "../../components/general/LocationPicker";
 import { useUserContext } from "../../context/UserContext";
-import { UserData } from "../../models/UserData";
+import { UserData } from "../../models/user/UserData";
 interface EditPageProps {
   travelData: TravelData;
   setTravelData: (newData: TravelData) => void;

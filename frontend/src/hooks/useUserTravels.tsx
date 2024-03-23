@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { UserData } from "../models/UserData";
+import { UserData } from "../models/user/UserData";
 import { useUserContext } from "../context/UserContext";
 import { useTravelsContext } from "../context/TravelsContext";
 import { TravelData } from "../models/travel-part/travel/TravelData";

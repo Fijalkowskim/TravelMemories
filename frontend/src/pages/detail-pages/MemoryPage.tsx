@@ -4,11 +4,11 @@ import { useTravelsContext } from "../../context/TravelsContext";
 import { FormatDate } from "../../helpers/helpers";
 import BackButton from "../../components/general/BackButton";
 import CustomButton from "../../components/general/CustomButton";
-import { PhotoData } from "../../models/PhotoData";
+import { PhotoData } from "../../models/travel-part/photo/PhotoData";
 import LikesDisplay from "../../components/public-memories/LikesDisplay";
 import { useUserContext } from "../../context/UserContext";
 import NewMemoryPage from "../create-pages/NewMemoryPage";
-import { PrivacyData } from "../../models/PrivacyData";
+import { PrivacyData } from "../../models/travel-part/photo/PrivacyData";
 import { TravelData } from "../../models/travel-part/travel/TravelData";
 interface Props {
   discover?: boolean;

@@ -9,7 +9,7 @@ import {
   useAnimate,
 } from "framer-motion";
 import CustomButton from "../general/CustomButton";
-import { PhotoData } from "../../models/PhotoData";
+import { PhotoData } from "../../models/travel-part/photo/PhotoData";
 import { FormatDate } from "../../helpers/helpers";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 import SlideshowCard, { SlideDirection } from "./SlideshowCard";

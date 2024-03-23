@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { TiLocation } from "react-icons/ti";
 import { FaMap } from "react-icons/fa";
-import { PhotoData } from "../../models/PhotoData";
-import { PrivacyData } from "../../models/PrivacyData";
+import { PhotoData } from "../../models/travel-part/photo/PhotoData";
+import { PrivacyData } from "../../models/travel-part/photo/PrivacyData";
 import DataEditButton from "../../components/general/DataEditButton";
 import { MdDateRange } from "react-icons/md";
 import { FormatDate } from "../../helpers/helpers";
 import { MdOutlineSecurity } from "react-icons/md";
 import { useTravelsContext } from "../../context/TravelsContext";
 import CustomDatepicker from "../../components/general/CustomDatepicker";
-import { StageData } from "../../models/StageData";
+import { StageData } from "../../models/travel-part/stage/StageData";
 import { TravelData } from "../../models/travel-part/travel/TravelData";
 import ContentDisplay from "../../components/content-display/ContentDisplay";
 import LocationPicker from "../../components/general/LocationPicker";
@@ -17,7 +17,7 @@ import NewTravelPage from "../create-pages/NewTravelPage";
 import NewStagePage from "../create-pages/NewStagePage";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
-import { UserData } from "../../models/UserData";
+import { UserData } from "../../models/user/UserData";
 interface EditPageProps {
   photoData: PhotoData;
   setPhotoData: (newData: PhotoData) => void;

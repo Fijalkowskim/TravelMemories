@@ -4,20 +4,15 @@ import Placeholder from "../../images/placeholder.png";
 import { motion } from "framer-motion";
 import { FormatDate } from "../../helpers/helpers";
 import { NavLink } from "react-router-dom";
-import { StageData } from "../../models/StageData";
-import { PhotoData } from "../../models/PhotoData";
+import { StageData } from "../../models/travel-part/stage/StageData";
+import { PhotoData } from "../../models/travel-part/photo/PhotoData";
 interface Props<T = any> {
   travel?: TravelData;
   stage?: StageData;
   photo?: PhotoData;
   newPhotoOnSelect?: (data: T) => void;
 }
-function ContentDisplayCard({
-  travel,
-  stage,
-  photo,
-  newPhotoOnSelect,
-}: Props) {
+function ContentDisplayCard({ travel, stage, photo, newPhotoOnSelect }: Props) {
   if (travel === undefined && stage === undefined && photo === undefined) {
     return <p className="mt-40">No content to display</p>;
   }

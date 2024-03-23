@@ -1,5 +1,4 @@
-import { StageData } from "../../StageData";
+import { StageData } from "../stage/StageData";
 import { TravelPartData } from "../TravelPartData";
 
-export interface TravelData extends TravelPartData{
-}
+export interface TravelData extends TravelPartData {}

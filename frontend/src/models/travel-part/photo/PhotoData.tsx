@@ -1,5 +1,5 @@
 import { PrivacyData } from "./PrivacyData";
-import { StageData } from "./StageData";
+import { StageData } from "../stage/StageData";
 
 export interface PhotoData {
   id: number | undefined;

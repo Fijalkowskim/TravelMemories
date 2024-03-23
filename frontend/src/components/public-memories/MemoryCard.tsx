@@ -1,5 +1,5 @@
 import React from "react";
-import { PhotoData } from "../../models/PhotoData";
+import { PhotoData } from "../../models/travel-part/photo/PhotoData";
 import { TiLocation } from "react-icons/ti";
 import { motion } from "framer-motion";
 import LikesDisplay from "./LikesDisplay";

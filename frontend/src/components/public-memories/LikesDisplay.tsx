@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PhotoData } from "../../models/PhotoData";
+import { PhotoData } from "../../models/travel-part/photo/PhotoData";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 import { motion } from "framer-motion";

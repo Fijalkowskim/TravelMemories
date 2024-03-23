@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useTravelsContext } from "../../context/TravelsContext";
 import { TravelData } from "../../models/travel-part/travel/TravelData";
 import { FormatDate } from "../../helpers/helpers";
-import { StageData } from "../../models/StageData";
+import { StageData } from "../../models/travel-part/stage/StageData";
 import TravelMap from "../../components/travels-page/TravelMap";
 import BackButton from "../../components/general/BackButton";
 import CustomButton from "../../components/general/CustomButton";

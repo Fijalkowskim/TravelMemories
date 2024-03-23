@@ -5,24 +5,30 @@ import React, {
   useState,
   useEffect,
 } from "react";
-import { UserData } from "../models/UserData";
+import { UserData } from "../models/user/UserData";
 import { CookiesProvider, useCookies } from "react-cookie";
 import { IoMdReturnLeft } from "react-icons/io";
 import { useTravelsContext } from "./TravelsContext";
 import api from "../api/api";
+import { AuthenticationRequest } from "../models/user/AuthenticationRequest";
 
 interface UserContextProviderProps {
   children: ReactNode;
 }
 interface UserContextProps {
-  isLoggedIn: boolean;
-  LogIn: (userLoginData: UserData) => void;
+  LogIn: (
+    authenticationRequest: AuthenticationRequest
+  ) => Promise<UserData | undefined>;
+  Register: (
+    authenticationRequest: AuthenticationRequest
+  ) => Promise<UserData | undefined>;
   LogOut: () => void;
-  GetUserData: () => UserData | undefined;
+  DeleteAccount: (password: string) => Promise<boolean>;
+
+  isLoggedIn: boolean;
   userData: UserData | undefined;
-  LoginCookies: () => void;
-  DeleteAccount: () => void;
-  CreateUser: (email: string, password: string) => Promise<boolean>;
+  GetUserData: () => UserData | undefined;
+  LoginFromCookies: () => UserData | undefined;
 }
 const UserContext = createContext({} as UserContextProps);
 
@@ -34,58 +40,87 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState<UserData | undefined>(undefined);
   const [userCookie, setUserCookie, removeUserCookie] = useCookies(["user"]);
-  //const { LoadUserTravels } = useTravelsContext();
 
-  const LogIn = (userLoginData: UserData) => {
-    setUserData(userLoginData);
-    setIsLoggedIn(true);
-    setUserCookie("user", userLoginData, { path: "/" });
-    //LoadUserTravels(userLoginData);
+  const AuthenticationApiCall = async (
+    authenticationRequest: AuthenticationRequest,
+    authenticationType: "login" | "register"
+  ): Promise<UserData | undefined> => {
+    const res = await api.post(
+      `/public/authenticate/${authenticationType}?email=${authenticationRequest.email}&password=${authenticationRequest.password}`
+    );
+    let userData: UserData | undefined;
+    if (res && res.data) {
+      userData = {
+        email: res.data.email,
+        id: res.data.id,
+        role: res.data.role,
+        token: res.data.token,
+      };
+    } else {
+    }
+    return userData;
+  };
+  const LogIn = async (
+    authenticationRequest: AuthenticationRequest
+  ): Promise<UserData | undefined> => {
+    const userData = await AuthenticationApiCall(
+      authenticationRequest,
+      "login"
+    );
+    if (userData) {
+      setUserData(userData);
+      setIsLoggedIn(true);
+      setUserCookie("user", userData, { path: "/" });
+    } else {
+    }
+    return userData;
+  };
+  const Register = async (
+    authenticationRequest: AuthenticationRequest
+  ): Promise<UserData | undefined> => {
+    const userData = await AuthenticationApiCall(
+      authenticationRequest,
+      "register"
+    );
+    if (userData) {
+      setUserData(userData);
+      setIsLoggedIn(true);
+      setUserCookie("user", userData, { path: "/" });
+    } else {
+    }
+    return userData;
   };
   const LogOut = () => {
-    setIsLoggedIn(false);
     setUserData(undefined);
     removeUserCookie("user", { path: "/" });
+    setIsLoggedIn(false);
   };
-  const LoginCookies = () => {
+  const LoginFromCookies = () => {
     const storedUserData = userCookie["user"] as UserData;
     if (storedUserData) {
-      LogIn(storedUserData);
+      setUserData(storedUserData);
+      setIsLoggedIn(true);
+      return storedUserData;
     }
+    return undefined;
   };
-  const DeleteAccount = () => {
+  const DeleteAccount = async (password: string): Promise<boolean> => {
     if (!userData) {
-      return;
+      return false;
     }
     try {
-      api.delete(`/user/delete?id=${userData.id}`);
+      api.delete(`/user?email=${userData.email}&password=${password}`);
       LogOut();
+      return true;
     } catch (err) {
       console.log(err);
     }
+    return false;
   };
   const GetUserData = () => {
     return userData;
   };
-  const CreateUser = async (
-    email: string,
-    password: string
-  ): Promise<boolean> => {
-    try {
-      const response = await api.put(
-        `/user/create?email=${email}&password=${password}`
-      );
-      LogIn({
-        id: response.data.id,
-        email: email,
-        password: password,
-      } as UserData);
-      return true;
-    } catch (err) {
-      console.log(err);
-      return false;
-    }
-  };
+
   return (
     <CookiesProvider>
       <UserContext.Provider
@@ -95,9 +130,9 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
           LogOut,
           userData,
           GetUserData,
-          LoginCookies,
+          LoginFromCookies,
           DeleteAccount,
-          CreateUser,
+          Register,
         }}
       >
         {children}

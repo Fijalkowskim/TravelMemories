@@ -6,7 +6,7 @@ import { useUserContext } from "../../context/UserContext";
 import HomePageBanner from "../../components/home-page/HomePageBanner";
 
 function HomePage() {
-  const { LoginCookies } = useUserContext();
+  const { LoginFromCookies: LoginCookies } = useUserContext();
 
   useEffect(() => {
     LoginCookies();

@@ -6,7 +6,7 @@ import { useUserContext } from "../../context/UserContext";
 import LoginPopup from "../../components/login/loginPopup";
 import { FaEye } from "react-icons/fa";
 function RegisterPage() {
-  const { CreateUser } = useUserContext();
+  const { Register: CreateUser } = useUserContext();
   const [errorMsg, setErrorMsg] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

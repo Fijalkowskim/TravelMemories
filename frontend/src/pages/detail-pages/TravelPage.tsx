@@ -11,7 +11,7 @@ import NewTravelPage from "../create-pages/NewTravelPage";
 import ContentDisplay from "../../components/content-display/ContentDisplay";
 import Slideshow from "../../components/travels-page/Slideshow";
 import { useUserContext } from "../../context/UserContext";
-import { UserData } from "../../models/UserData";
+import { UserData } from "../../models/user/UserData";
 
 function TravelPage() {
   const { id } = useParams();
