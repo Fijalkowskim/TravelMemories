@@ -11,6 +11,8 @@ import { IoMdReturnLeft } from "react-icons/io";
 import { useTravelsContext } from "./TravelsContext";
 import api from "../api/api";
 import { AuthenticationRequest } from "../models/user/AuthenticationRequest";
+import { usePopupContext } from "./PopupContext";
+import { PopupMessageType } from "../models/popups/PopupMessageType";
 
 interface UserContextProviderProps {
   children: ReactNode;
@@ -41,22 +43,26 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
   const [userData, setUserData] = useState<UserData | undefined>(undefined);
   const [userCookie, setUserCookie, removeUserCookie] = useCookies(["user"]);
 
+  const { addMessage } = usePopupContext();
   const AuthenticationApiCall = async (
     authenticationRequest: AuthenticationRequest,
     authenticationType: "login" | "register"
   ): Promise<UserData | undefined> => {
-    const res = await api.post(
-      `/public/authenticate/${authenticationType}?email=${authenticationRequest.email}&password=${authenticationRequest.password}`
-    );
-    let userData: UserData | undefined;
-    if (res && res.data) {
-      userData = {
-        email: res.data.email,
-        id: res.data.id,
-        role: res.data.role,
-        token: res.data.token,
-      };
-    } else {
+    try {
+      const res = await api.post(
+        `/public/authenticate/${authenticationType}?email=${authenticationRequest.email}&password=${authenticationRequest.password}`
+      );
+      let userData: UserData | undefined;
+      if (res && res.data) {
+        userData = {
+          email: res.data.email,
+          id: res.data.id,
+          role: res.data.role,
+          token: res.data.token,
+        };
+      }
+    } catch (err) {
+      addMessage("Wrong email/password", PopupMessageType.ERROR, 3000);
     }
     return userData;
   };
