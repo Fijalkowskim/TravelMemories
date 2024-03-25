@@ -18,9 +18,6 @@ function LoginForm({ onSubmit }: Props) {
       className="flex flex-col gap-4 justify-center items-center py-6 w-full max-w-[20rem] bg-primary-50 p-10 rounded-lg shadow-md"
       onSubmit={(e) => {
         e.preventDefault();
-        if (email === "" || password === "") {
-          return;
-        }
         onSubmit(email, password);
       }}
     >

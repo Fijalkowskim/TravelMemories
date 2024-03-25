@@ -1,17 +1,19 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { SlGlobe } from "react-icons/sl";
-import { motion } from "framer-motion";
+import React from "react";
 import { useUserContext } from "../../context/UserContext";
-import LoginPopup from "../../components/login/loginPopup";
-import { FaEye } from "react-icons/fa";
 import LogoHomeNavlink from "../../components/authentication/LogoHomeNavlink";
 import RegisterForm from "../../components/authentication/RegisterForm";
+import { usePopupContext } from "../../context/PopupContext";
+import { PopupMessageType } from "../../models/popups/PopupMessageType";
 function RegisterPage() {
-  const { LogIn } = useUserContext();
+  const { Register } = useUserContext();
+  const {addMessage} = usePopupContext();
 
-  const onFormSubmit = async (username: string, password: string) => {
-    const res = await LogIn({ email: username, password: password });
+  const onFormSubmit = async (username: string, password: string, retypePassword: string) => {
+    if(password !== retypePassword){
+      addMessage("Passwords must match", PopupMessageType.ERROR, 3000);
+      return;
+    }
+    const res = await Register({ email: username, password: password });
     if (res) {
     }
   };

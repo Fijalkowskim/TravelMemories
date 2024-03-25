@@ -31,7 +31,7 @@ const PopupCard = ({ popupMessage }: Props) => {
         variant
       )}
     >
-      There was an error
+      {popupMessage.message}
       <motion.button
         className="absolute -top-[0.15rem] left-2 text-xl cursor-pointer pointer-events-auto"
         whileHover={{ scale: 1.2 }}

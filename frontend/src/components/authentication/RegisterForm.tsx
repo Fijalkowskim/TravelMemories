@@ -4,7 +4,7 @@ import { FaEye } from "react-icons/fa";
 import FormInput from "./FormInput";
 
 type Props = {
-  onSubmit: (username: string, password: string) => void;
+  onSubmit: (username: string, password: string, retypePassword: string) => void;
 };
 
 function RegisterForm({ onSubmit }: Props) {
@@ -18,10 +18,7 @@ function RegisterForm({ onSubmit }: Props) {
       className="flex flex-col gap-4 justify-center items-center py-6 w-full max-w-[20rem] bg-primary-50 p-10 rounded-lg shadow-md"
       onSubmit={(e) => {
         e.preventDefault();
-        if (email === "" || password === "") {
-          return;
-        }
-        onSubmit(email, password);
+        onSubmit(email, password,retypePassword);
       }}
     >
       <div className="relative w-full">
