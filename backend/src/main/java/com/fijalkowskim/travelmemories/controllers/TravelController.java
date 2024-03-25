@@ -30,7 +30,6 @@ public class TravelController {
         this.stageService = stageService;
         this.travelService = travelService;
     }
-
     @GetMapping("")
     public Page<Travel> getTravels(
             @RequestParam(name = "sort", defaultValue = "") String sort,
