@@ -48,11 +48,12 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
     authenticationRequest: AuthenticationRequest,
     authenticationType: "login" | "register"
   ): Promise<UserData | undefined> => {
+    let userData: UserData | undefined;
     try {
       const res = await api.post(
         `/public/authenticate/${authenticationType}?email=${authenticationRequest.email}&password=${authenticationRequest.password}`
       );
-      let userData: UserData | undefined;
+
       if (res && res.data) {
         userData = {
           email: res.data.email,
