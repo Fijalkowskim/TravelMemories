@@ -35,6 +35,25 @@ public class User implements UserDetails {
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
 
+    public User(Long id, String email, String passwordHash, Set<Travel> travel, UserRole role) {
+        this.id = id;
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.travel = travel;
+        this.role = role;
+    }
+
+    public User() {
+    }
+
+    public User(String email, String passwordHash) {
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.role = UserRole.USER;
+        this.travel = new HashSet<>();
+        this.id = 0L;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

@@ -17,7 +17,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/changePassword")
+    @PutMapping("/changePassword")
     public ResponseEntity<String> changePassword(
             @RequestParam(name = "email") String email,
             @RequestParam(name = "oldPassword") String oldPassword,

@@ -17,10 +17,13 @@ import java.util.Optional;
 public class UserService {
     private final UserDAORepository userDAORepository;
     private final AuthenticateService authenticateService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
-    public UserService(UserDAORepository userDAORepository, AuthenticateService authenticateService) {
+    public UserService(UserDAORepository userDAORepository, AuthenticateService authenticateService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userDAORepository = userDAORepository;
         this.authenticateService = authenticateService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public void deleteUser(String email, String password) throws CustomHTTPException{
@@ -30,7 +33,6 @@ public class UserService {
     public void changePassword(String email,String oldPassword, String newPassword) throws CustomHTTPException{
         User user = authenticateService.authenticate(email,oldPassword);
         if(oldPassword.equals(newPassword)) throw new CustomHTTPException("Passwords must differ.",HttpStatus.BAD_REQUEST);
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
-        userDAORepository.updatePasswordHashForUser(user.getEmail(),encoder.encode(newPassword));
+        userDAORepository.updatePasswordHashForUser(user.getEmail(),bCryptPasswordEncoder.encode(newPassword));
     }
 }
