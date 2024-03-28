@@ -59,4 +59,17 @@ public class UserServiceTest {
             userService.changePassword(email, wrongPassword, newPassword);
         });
     }
+    @Test
+    public void testChangePassword_NoSuchUser(){
+        String oldPassword = "oldPassword";
+        String newPassword = "newPassword";
+        String wrongEmail = "wrongEmail";
+
+        when(authenticateService.authenticate(wrongEmail, oldPassword))
+                .thenThrow(new CustomHTTPException("No such user.", HttpStatus.BAD_REQUEST));
+
+        assertThrows(CustomHTTPException.class, () -> {
+            userService.changePassword(wrongEmail, oldPassword, newPassword);
+        });
+    }
 }
