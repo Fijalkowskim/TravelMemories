@@ -18,7 +18,7 @@ function TravelPartCard({data,onClick}: Props) {
     }
   return (
     <NavLink to={detailsLink} onClick={handleOnClick}>
-        <motion.button className='flex-grow w-1/3 p-3 bg-background-50 aspect-square shadow-md'></motion.button>
+        <motion.button className='flex-shrink-0 flex-grow w-1/3 p-3 bg-background-50 aspect-square shadow-md'></motion.button>
     </NavLink>
   )
 }

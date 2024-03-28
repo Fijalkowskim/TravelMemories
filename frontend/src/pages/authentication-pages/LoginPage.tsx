@@ -1,11 +1,5 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { SlGlobe } from "react-icons/sl";
-import { motion } from "framer-motion";
+import React from "react";
 import { useUserContext } from "../../context/UserContext";
-import LoginPopup from "../../components/login/loginPopup";
-import { FaEye } from "react-icons/fa";
-import PageWrapper from "../PageWrapper";
 import LoginForm from "../../components/authentication/LoginForm";
 import LogoHomeNavlink from "../../components/authentication/LogoHomeNavlink";
 

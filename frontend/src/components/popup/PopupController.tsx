@@ -9,7 +9,6 @@ function PopupController() {
 
   return (
     <motion.ul
-      layout
       className="absolute w-full mt-16 pointer-events-none flex flex-col justify-center items-end gap-2 overflow-hidden py-4"
     >
       <AnimatePresence>
