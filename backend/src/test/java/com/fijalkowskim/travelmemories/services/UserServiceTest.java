@@ -1,5 +1,6 @@
 package com.fijalkowskim.travelmemories.services;
 
+import com.fijalkowskim.travelmemories.exceptions.CustomHTTPException;
 import com.fijalkowskim.travelmemories.models.users.User;
 import com.fijalkowskim.travelmemories.repositories.UserDAORepository;
 import org.junit.Assert.*;
@@ -11,9 +12,11 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.junit.runner.RunWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.*;
 
 
@@ -42,5 +45,18 @@ public class UserServiceTest {
 
         userService.changePassword(email, oldPassword, newPassword);
         verify(userDAORepository).updatePasswordHashForUser(email, hashedNewPassword);
+    }
+    @Test
+    public void testChangePassword_WrongPassword(){
+        String newPassword = "newPassword";
+        String wrongPassword = "wrongPassword";
+        String email = "email";
+
+        when(authenticateService.authenticate(email, wrongPassword))
+                .thenThrow(new CustomHTTPException("Wrong password.", HttpStatus.BAD_REQUEST));
+
+        assertThrows(CustomHTTPException.class, () -> {
+            userService.changePassword(email, wrongPassword, newPassword);
+        });
     }
 }
