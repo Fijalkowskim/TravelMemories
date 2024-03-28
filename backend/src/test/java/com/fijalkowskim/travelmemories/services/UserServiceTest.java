@@ -72,4 +72,19 @@ public class UserServiceTest {
             userService.changePassword(wrongEmail, oldPassword, newPassword);
         });
     }
+    @Test
+    public void testChangePassword_SamePasswords(){
+        String newPassword = "oldPassword";
+        String oldPassword = "oldPassword";
+        String email = "email";
+
+        String hashedOldPassword = "$2a$12$hashedOldPassword";
+
+        when(authenticateService.authenticate(email, oldPassword))
+                .thenReturn(new User(email, hashedOldPassword));
+
+        assertThrows(CustomHTTPException.class, () -> {
+            userService.changePassword(email, oldPassword, newPassword);
+        });
+    }
 }
