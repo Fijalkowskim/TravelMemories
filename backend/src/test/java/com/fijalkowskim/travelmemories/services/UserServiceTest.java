@@ -3,19 +3,14 @@ package com.fijalkowskim.travelmemories.services;
 import com.fijalkowskim.travelmemories.exceptions.CustomHTTPException;
 import com.fijalkowskim.travelmemories.models.users.User;
 import com.fijalkowskim.travelmemories.repositories.UserDAORepository;
-import org.junit.Assert.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.junit.runner.RunWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.*;
 
