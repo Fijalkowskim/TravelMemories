@@ -1,8 +1,10 @@
 package com.fijalkowskim.travelmemories.controllers;
 
 import com.fijalkowskim.travelmemories.exceptions.CustomHTTPException;
-import com.fijalkowskim.travelmemories.responsemodels.AuthenticateResponse;
-import com.fijalkowskim.travelmemories.services.AuthenticateService;
+import com.fijalkowskim.travelmemories.models.travels.Travel;
+import com.fijalkowskim.travelmemories.services.PhotoService;
+import com.fijalkowskim.travelmemories.services.StageService;
+import com.fijalkowskim.travelmemories.services.TravelService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -11,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -23,26 +27,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
-public class AuthenticateControllerTest {
+public class TravelControllerTest {
 
     @Autowired
     private MockMvc mvc;
 
     @MockBean
-    private AuthenticateService authenticateService;
-    @Mock
-    private AuthenticateResponse authenticateResponse;
+    private PhotoService photoService;
+
+    @MockBean
+    private StageService stageService;
+
+    @MockBean
+    private TravelService travelService;
 
     @Test
-    public void testLogin_Successfully() throws Exception {
-        String email = "user1@email.com";
-        String password = "password";
+    public void testGetTravels_Successfully() throws Exception {
+        Mockito.when(travelService.getTravels(Mockito.any(PageRequest.class), Mockito.anyString())).thenReturn(Page.empty());
 
-        Mockito.when(authenticateService.login(email, password)).thenReturn(authenticateResponse);
-
-        RequestBuilder request = MockMvcRequestBuilders.post("/api/public/authenticate/login")
-                .param("email", email)
-                .param("password", password)
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/travels")
                 .contentType(MediaType.APPLICATION_JSON);
 
         this.mvc.perform(request)
@@ -50,18 +53,19 @@ public class AuthenticateControllerTest {
     }
 
     @Test
-    public void testRegister_Successfully() throws Exception {
-        String email = "user1@email.com";
-        String password = "password";
+    public void testGetTravel_Successfully() throws Exception {
+        long travelId = 1L;
+        Travel travel = new Travel();
+        travel.setId(1L);
 
-        Mockito.when(authenticateService.register(email, password)).thenReturn(authenticateResponse);
+        Mockito.when(travelService.getTravelById(travelId)).thenReturn(travel);
 
-        RequestBuilder request = MockMvcRequestBuilders.post("/api/public/authenticate/register")
-                .param("email", email)
-                .param("password", password)
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/travels/" + travelId)
                 .contentType(MediaType.APPLICATION_JSON);
 
         this.mvc.perform(request)
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
     }
+
+
 }

@@ -5,7 +5,10 @@ import com.fijalkowskim.travelmemories.models.photos.Photo;
 import com.fijalkowskim.travelmemories.models.stages.Stage;
 import com.fijalkowskim.travelmemories.models.users.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
@@ -13,6 +16,8 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "travels")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Travel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
