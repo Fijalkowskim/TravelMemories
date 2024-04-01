@@ -59,6 +59,7 @@ public class UserControllerTest {
                 .param("oldPassword", oldPassword)
                 .param("newPassword", newPassword)
                 .contentType(MediaType.APPLICATION_JSON);
+
         this.mvc.perform(request)
                 .andExpect(status().isBadRequest());
     }
@@ -74,6 +75,7 @@ public class UserControllerTest {
                 .param("oldPassword", oldPassword)
                 .param("newPassword", newPassword)
                 .contentType(MediaType.APPLICATION_JSON);
+
         this.mvc.perform(request)
                 .andExpect(status().isBadRequest());
     }
@@ -88,6 +90,47 @@ public class UserControllerTest {
                 .param("email", email)
                 .param("oldPassword", oldPassword)
                 .param("newPassword", newPassword)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        this.mvc.perform(request)
+                .andExpect(status().isBadRequest());
+    }
+    @Test
+    public void testDeleteUser_Successfully() throws Exception{
+        String email = "user1@email.com";
+        String password = "p";
+        RequestBuilder request  = MockMvcRequestBuilders.delete("/api/user")
+                .param("email", email)
+                .param("password", password)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        this.mvc.perform(request)
+                .andExpect(status().isOk());
+    }
+    @Test
+    public void testDeleteUser_WrongPassword() throws Exception{
+        String email = "user1@email.com";
+        String password = "wrongPassword";
+        Mockito.doThrow(new CustomHTTPException("Wrong password", HttpStatus.BAD_REQUEST))
+                .when(userService).deleteUser(email,password);
+
+        RequestBuilder request  = MockMvcRequestBuilders.delete("/api/user")
+                .param("email", email)
+                .param("password", password)
+                .contentType(MediaType.APPLICATION_JSON);
+        this.mvc.perform(request)
+                .andExpect(status().isBadRequest());
+    }
+    @Test
+    public void testDeleteUser_NoSuchUser() throws Exception{
+        String email = "nouser@email.com";
+        String password = "wrongPassword";
+        Mockito.doThrow(new CustomHTTPException("No user with such email", HttpStatus.BAD_REQUEST))
+                .when(userService).deleteUser(email,password);
+
+        RequestBuilder request  = MockMvcRequestBuilders.delete("/api/user")
+                .param("email", email)
+                .param("password", password)
                 .contentType(MediaType.APPLICATION_JSON);
         this.mvc.perform(request)
                 .andExpect(status().isBadRequest());
