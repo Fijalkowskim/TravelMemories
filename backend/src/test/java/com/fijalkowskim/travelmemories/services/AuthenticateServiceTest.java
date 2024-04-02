@@ -15,6 +15,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,8 +48,19 @@ public class AuthenticateServiceTest {
         when(userDAORepository.findByEmail(email))
                 .thenReturn(Optional.empty());
 
+
+    }
+    @Test
+    public void testAuthenticate_WrongPassword(){
+        String email = "user1@email.com";
+        String password ="wrongPassword";
+        User user  = User.builder().email(email).passwordHash("p").build();
+        when(userDAORepository.findByEmail(Mockito.anyString()))
+                .thenReturn(Optional.of(user));
+        when(bCryptPasswordEncoder.matches(Mockito.anyString(), Mockito.anyString())).thenReturn(false);
+
         assertThrows( CustomHTTPException.class,()->{
-            authenticateService.authenticate(email,"p");
+            authenticateService.authenticate(email,password);
         });
     }
 }
