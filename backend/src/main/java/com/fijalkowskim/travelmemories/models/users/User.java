@@ -3,6 +3,7 @@ package com.fijalkowskim.travelmemories.models.users;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fijalkowskim.travelmemories.models.travels.Travel;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 @Data
 @Entity
+@Builder
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
