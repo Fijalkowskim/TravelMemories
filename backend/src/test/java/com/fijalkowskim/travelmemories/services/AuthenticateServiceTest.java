@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -38,17 +40,16 @@ public class AuthenticateServiceTest {
                 .thenReturn(Optional.of(user));
         when(bCryptPasswordEncoder.matches(Mockito.anyString(), Mockito.anyString())).thenReturn(true);
 
-        User authenticatedUser = authenticateService.authenticate(email, password);
-
-        assertEquals(authenticatedUser, user);
+        assertThat(authenticateService.authenticate(email, password)).isEqualTo(user);
     }
     @Test
     public void testAuthenticate_NoSuchUser(){
         String email = "nouser@email.com";
         when(userDAORepository.findByEmail(email))
                 .thenReturn(Optional.empty());
-
-
+        assertThatThrownBy( ()->{
+            authenticateService.authenticate(email,"password");
+        }).isInstanceOf(CustomHTTPException.class);
     }
     @Test
     public void testAuthenticate_WrongPassword(){
@@ -59,8 +60,8 @@ public class AuthenticateServiceTest {
                 .thenReturn(Optional.of(user));
         when(bCryptPasswordEncoder.matches(Mockito.anyString(), Mockito.anyString())).thenReturn(false);
 
-        assertThrows( CustomHTTPException.class,()->{
+        assertThatThrownBy( ()->{
             authenticateService.authenticate(email,password);
-        });
+        }).isInstanceOf(CustomHTTPException.class);
     }
 }
