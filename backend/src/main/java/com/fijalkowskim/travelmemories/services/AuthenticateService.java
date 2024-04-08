@@ -37,21 +37,15 @@ public class AuthenticateService {
 
     public AuthenticateResponse login(String email, String password) throws CustomHTTPException {
        User user = authenticate(email, password);
-        AuthenticateResponse response = new AuthenticateResponse();
-        response.setUser(user);
-        response.setToken(jwtService.generateToken(user));
-        return response;
+       return AuthenticateResponse.builder().user(user).token(jwtService.generateToken(user)).build();
     }
     public AuthenticateResponse register(String email, String password) throws CustomHTTPException {
         if(userDAORepository.findByEmail(email).isPresent()) throw new CustomHTTPException("User with this email already exists.",HttpStatus.CONFLICT);
-        User user = new User();
-        user.setEmail(email);
-        user.setPasswordHash(bCryptPasswordEncoder.encode(password));
-        user.setRole(UserRole.USER);
+        User user = User.builder()
+                .email(email)
+                .passwordHash(bCryptPasswordEncoder.encode(password))
+                .role(UserRole.USER).build();
         User newUser = userDAORepository.save(user);
-        AuthenticateResponse response = new AuthenticateResponse();
-        response.setUser(newUser);
-        response.setToken(jwtService.generateToken(newUser));
-        return response;
+        return AuthenticateResponse.builder().user(newUser).token(jwtService.generateToken(user)).build();
     }
 }
