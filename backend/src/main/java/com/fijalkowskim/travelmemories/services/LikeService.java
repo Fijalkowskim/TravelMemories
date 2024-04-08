@@ -31,7 +31,8 @@ public class LikeService {
         this.userDAORepository = userDAORepository;
     }
 
-    public Page<Like> getLikesOfPhoto(long photoId, Pageable pageable){
+    public Page<Like> getLikesOfPhoto(long photoId, Pageable pageable) throws CustomHTTPException{
+        if(photoId < 0) throw new CustomHTTPException("Photo ID must be a positive value", HttpStatus.BAD_REQUEST);
         return likeDAORepository.findAllByPhotoId(photoId,pageable);
     }
     public Like getLikeById(Long likeId) throws CustomHTTPException {
