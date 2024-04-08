@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -74,7 +75,7 @@ public class AuthenticateServiceTest {
         String password = "password";
         String token = "token";
         User user = new User();
-        when(authenticateService.authenticate(email,password)).thenReturn(user);
+        doReturn(user).when(authenticateService).authenticate(email,password);
         when(jwtService.generateToken(user)).thenReturn(token);
 
         assertThat(authenticateService.login(email,password)).
