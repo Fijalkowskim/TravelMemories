@@ -34,7 +34,7 @@ public class AuthenticateControllerTest {
     private AuthenticateResponse authenticateResponse;
 
     @Test
-    public void testLogin_Successfully() throws Exception {
+    public void Login_ProperData_Success() throws Exception {
         String email = "user1@email.com";
         String password = "password";
 
@@ -50,7 +50,7 @@ public class AuthenticateControllerTest {
     }
 
     @Test
-    public void testRegister_Successfully() throws Exception {
+    public void Register_ProperData_Success() throws Exception {
         String email = "user1@email.com";
         String password = "password";
 

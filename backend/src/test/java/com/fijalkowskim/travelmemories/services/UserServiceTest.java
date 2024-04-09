@@ -26,7 +26,7 @@ public class UserServiceTest {
     @Mock
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Test
-    public void testChangePassword_Successfully(){
+    public void ChangePassword_ProperData_Success(){
         String newPassword = "newPassword";
         String oldPassword = "oldPassword";
         String email = "email";
@@ -42,7 +42,7 @@ public class UserServiceTest {
         verify(userDAORepository).updatePasswordHashForUser(email, hashedNewPassword);
     }
     @Test
-    public void testChangePassword_WrongPassword(){
+    public void ChangePassword_WrongPassword_ExceptionThrown(){
         String newPassword = "newPassword";
         String wrongPassword = "wrongPassword";
         String email = "email";
@@ -55,7 +55,7 @@ public class UserServiceTest {
         });
     }
     @Test
-    public void testChangePassword_NoSuchUser(){
+    public void ChangePassword_NoSuchUser_ExceptionThrown(){
         String oldPassword = "oldPassword";
         String newPassword = "newPassword";
         String wrongEmail = "wrongEmail";
@@ -68,7 +68,7 @@ public class UserServiceTest {
         });
     }
     @Test
-    public void testChangePassword_SamePasswords(){
+    public void ChangePassword_NewPasswordSameAsOld_ExceptionThrown(){
         String newPassword = "oldPassword";
         String oldPassword = "oldPassword";
         String email = "email";

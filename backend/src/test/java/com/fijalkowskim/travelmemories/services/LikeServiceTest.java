@@ -33,14 +33,14 @@ public class LikeServiceTest {
     private PhotoDAORepository photoDAORepository;
 
     @Test
-    public void testGetLikesOfPhoto_Successfully(){
+    public void GetLikesOfPhoto_ProperData_Success(){
         PageRequest pageRequest = PageRequest.of(1, 1);
         when(likesDAORepository.findAllByPhotoId(1L, pageRequest))
                 .thenReturn(Page.empty());
         assertThat(likeService.getLikesOfPhoto(1L, pageRequest)).isEqualTo(Page.empty());
     }
     @Test
-    public void testGetLikesOfPhoto_NegativePhotoId(){
+    public void GetLikesOfPhoto_NegativePhotoId_ExceptionThrown(){
         PageRequest pageRequest = PageRequest.of(1, 1);
         assertThatThrownBy(()->likeService.getLikesOfPhoto(-1L, pageRequest)).isInstanceOf(CustomHTTPException.class);
 

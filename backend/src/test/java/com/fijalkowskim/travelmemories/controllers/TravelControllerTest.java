@@ -42,7 +42,7 @@ public class TravelControllerTest {
     private TravelService travelService;
 
     @Test
-    public void testGetTravels_Successfully() throws Exception {
+    public void GetTravels_ProperData_Success() throws Exception {
         Mockito.when(travelService.getTravels(Mockito.any(PageRequest.class), Mockito.anyString())).thenReturn(Page.empty());
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/travels")
@@ -53,7 +53,7 @@ public class TravelControllerTest {
     }
 
     @Test
-    public void testGetTravel_Successfully() throws Exception {
+    public void GetTravel_ProperData_Success() throws Exception {
         long travelId = 1L;
         Travel travel = new Travel();
         travel.setId(1L);

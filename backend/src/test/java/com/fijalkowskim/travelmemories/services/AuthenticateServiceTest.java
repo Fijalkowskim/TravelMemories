@@ -37,7 +37,7 @@ public class AuthenticateServiceTest {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Test
-    public void testAuthenticate_Successfully(){
+    public void Authenticate_ProperData_Success(){
         String email = "user1@email.com";
         String password ="p";
         User user  = User.builder().email(email).passwordHash(password).build();
@@ -48,7 +48,7 @@ public class AuthenticateServiceTest {
         assertThat(authenticateService.authenticate(email, password)).isEqualTo(user);
     }
     @Test
-    public void testAuthenticate_NoSuchUser(){
+    public void Authenticate_NoSuchUser_ExceptionThrown(){
         String email = "nouser@email.com";
         when(userDAORepository.findByEmail(email))
                 .thenReturn(Optional.empty());
@@ -57,7 +57,7 @@ public class AuthenticateServiceTest {
         }).isInstanceOf(CustomHTTPException.class);
     }
     @Test
-    public void testAuthenticate_WrongPassword(){
+    public void Authenticate_WrongPassword_ExceptionThrown(){
         String email = "user1@email.com";
         String password ="wrongPassword";
         User user  = User.builder().email(email).passwordHash("p").build();
@@ -70,7 +70,7 @@ public class AuthenticateServiceTest {
         }).isInstanceOf(CustomHTTPException.class);
     }
     @Test
-    public void testLogin_Successfully(){
+    public void Login_ProperData_Success(){
         String email = "user1@email.com";
         String password = "password";
         String token = "token";

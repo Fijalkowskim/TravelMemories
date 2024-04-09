@@ -28,7 +28,7 @@ public class UserControllerTest {
     private UserService userService;
 
     @Test
-    public void testChangePassword_Successfully() throws Exception{
+    public void ChangePassword_ProperData_Success() throws Exception{
         String email = "user1@email.com";
         String oldPassword = "oldPassword";
         String newPassword = "newPassword";
@@ -41,7 +41,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk());
     }
     @Test
-    public void testChangePassword_SamePasswords() throws Exception{
+    public void ChangePassword_NewPasswordSameAsOld_BadRequest() throws Exception{
         String email = "user1@email.com";
         String oldPassword = "oldPassword";
         String newPassword = "oldPassword";
@@ -57,7 +57,7 @@ public class UserControllerTest {
                 .andExpect(status().isBadRequest());
     }
     @Test
-    public void testChangePassword_WrongPassword() throws Exception{
+    public void ChangePassword_WrongPassword_BadRequest() throws Exception{
         String email = "user1@email.com";
         String oldPassword = "wrongPassword";
         String newPassword = "newPassword";
@@ -73,7 +73,7 @@ public class UserControllerTest {
                 .andExpect(status().isBadRequest());
     }
     @Test
-    public void testChangePassword_NoSuchUser() throws Exception{
+    public void ChangePassword_NoSuchUser_BadRequest() throws Exception{
         String email = "baduser@email.com";
         String oldPassword = "oldPassword";
         String newPassword = "newPassword";
@@ -89,7 +89,7 @@ public class UserControllerTest {
                 .andExpect(status().isBadRequest());
     }
     @Test
-    public void testDeleteUser_Successfully() throws Exception{
+    public void DeleteUser_ProperData_Success() throws Exception{
         String email = "user1@email.com";
         String password = "p";
         RequestBuilder request  = MockMvcRequestBuilders.delete("/api/user")
@@ -101,7 +101,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk());
     }
     @Test
-    public void testDeleteUser_WrongPassword() throws Exception{
+    public void DeleteUser_WrongPassword_BadRequest() throws Exception{
         String email = "user1@email.com";
         String password = "wrongPassword";
         Mockito.doThrow(new CustomHTTPException("Wrong password", HttpStatus.BAD_REQUEST))
@@ -115,7 +115,7 @@ public class UserControllerTest {
                 .andExpect(status().isBadRequest());
     }
     @Test
-    public void testDeleteUser_NoSuchUser() throws Exception{
+    public void DeleteUser_NoSuchUser_BadRequest() throws Exception{
         String email = "nouser@email.com";
         String password = "wrongPassword";
         Mockito.doThrow(new CustomHTTPException("No user with such email", HttpStatus.BAD_REQUEST))
