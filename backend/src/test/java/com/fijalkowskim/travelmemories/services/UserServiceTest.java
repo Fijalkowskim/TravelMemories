@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -50,9 +51,9 @@ public class UserServiceTest {
         when(authenticateService.authenticate(email, wrongPassword))
                 .thenThrow(new CustomHTTPException("Wrong password.", HttpStatus.BAD_REQUEST));
 
-        assertThrows(CustomHTTPException.class, () -> {
+        assertThatThrownBy(() -> {
             userService.changePassword(email, wrongPassword, newPassword);
-        });
+        }).isInstanceOf(CustomHTTPException.class);
     }
     @Test
     public void ChangePassword_NoSuchUser_ExceptionThrown(){
@@ -63,9 +64,9 @@ public class UserServiceTest {
         when(authenticateService.authenticate(wrongEmail, oldPassword))
                 .thenThrow(new CustomHTTPException("No such user.", HttpStatus.BAD_REQUEST));
 
-        assertThrows(CustomHTTPException.class, () -> {
+        assertThatThrownBy(() -> {
             userService.changePassword(wrongEmail, oldPassword, newPassword);
-        });
+        }).isInstanceOf(CustomHTTPException.class);
     }
     @Test
     public void ChangePassword_NewPasswordSameAsOld_ExceptionThrown(){
@@ -78,8 +79,8 @@ public class UserServiceTest {
         when(authenticateService.authenticate(email, oldPassword))
                 .thenReturn(new User(email, hashedOldPassword));
 
-        assertThrows(CustomHTTPException.class, () -> {
+        assertThatThrownBy(() -> {
             userService.changePassword(email, oldPassword, newPassword);
-        });
+        }).isInstanceOf(CustomHTTPException.class);
     }
 }
