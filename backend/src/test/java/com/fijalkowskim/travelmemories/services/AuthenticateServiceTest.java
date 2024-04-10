@@ -40,18 +40,21 @@ public class AuthenticateServiceTest {
     public void Authenticate_ProperData_Success(){
         String email = "user1@email.com";
         String password ="p";
-        User user  = User.builder().email(email).passwordHash(password).build();
+        User expectedUser  = User.builder().email(email).passwordHash(password).build();
         when(userDAORepository.findByEmail(Mockito.anyString()))
-                .thenReturn(Optional.of(user));
+                .thenReturn(Optional.of(expectedUser));
         when(bCryptPasswordEncoder.matches(Mockito.anyString(), Mockito.anyString())).thenReturn(true);
 
-        assertThat(authenticateService.authenticate(email, password)).isEqualTo(user);
+        User resultUser = authenticateService.authenticate(email, password);
+
+        assertThat(resultUser).isEqualTo(expectedUser);
     }
     @Test
     public void Authenticate_NoSuchUser_ExceptionThrown(){
         String email = "nouser@email.com";
         when(userDAORepository.findByEmail(email))
                 .thenReturn(Optional.empty());
+
         assertThatThrownBy( ()->{
             authenticateService.authenticate(email,"password");
         }).isInstanceOf(CustomHTTPException.class);
@@ -60,9 +63,9 @@ public class AuthenticateServiceTest {
     public void Authenticate_WrongPassword_ExceptionThrown(){
         String email = "user1@email.com";
         String password ="wrongPassword";
-        User user  = User.builder().email(email).passwordHash("p").build();
+        User expectedUser  = User.builder().email(email).passwordHash("p").build();
         when(userDAORepository.findByEmail(Mockito.anyString()))
-                .thenReturn(Optional.of(user));
+                .thenReturn(Optional.of(expectedUser));
         when(bCryptPasswordEncoder.matches(Mockito.anyString(), Mockito.anyString())).thenReturn(false);
 
         assertThatThrownBy( ()->{
@@ -78,7 +81,9 @@ public class AuthenticateServiceTest {
         doReturn(user).when(authenticateService).authenticate(email,password);
         when(jwtService.generateToken(user)).thenReturn(token);
 
-        assertThat(authenticateService.login(email,password)).
+        AuthenticateResponse authenticateResponse = authenticateService.login(email,password);
+
+        assertThat(authenticateResponse).
                 isEqualTo(AuthenticateResponse.builder().token(token).user(user).build());
     }
 }

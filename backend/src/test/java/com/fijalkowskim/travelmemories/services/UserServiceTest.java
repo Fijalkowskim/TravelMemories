@@ -31,10 +31,8 @@ public class UserServiceTest {
         String newPassword = "newPassword";
         String oldPassword = "oldPassword";
         String email = "email";
-
         String hashedOldPassword = "$2a$12$hashedOldPassword";
         String hashedNewPassword = "$2a$12$hashedNewPassword";
-
         when(authenticateService.authenticate(email, oldPassword))
                 .thenReturn(new User(email, hashedOldPassword));
         when(bCryptPasswordEncoder.encode(newPassword)).thenReturn(hashedNewPassword);
@@ -47,7 +45,6 @@ public class UserServiceTest {
         String newPassword = "newPassword";
         String wrongPassword = "wrongPassword";
         String email = "email";
-
         when(authenticateService.authenticate(email, wrongPassword))
                 .thenThrow(new CustomHTTPException("Wrong password.", HttpStatus.BAD_REQUEST));
 
@@ -60,7 +57,6 @@ public class UserServiceTest {
         String oldPassword = "oldPassword";
         String newPassword = "newPassword";
         String wrongEmail = "wrongEmail";
-
         when(authenticateService.authenticate(wrongEmail, oldPassword))
                 .thenThrow(new CustomHTTPException("No such user.", HttpStatus.BAD_REQUEST));
 
@@ -73,9 +69,7 @@ public class UserServiceTest {
         String newPassword = "oldPassword";
         String oldPassword = "oldPassword";
         String email = "email";
-
         String hashedOldPassword = "$2a$12$hashedOldPassword";
-
         when(authenticateService.authenticate(email, oldPassword))
                 .thenReturn(new User(email, hashedOldPassword));
 

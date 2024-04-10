@@ -2,6 +2,7 @@ package com.fijalkowskim.travelmemories.services;
 
 import com.fijalkowskim.travelmemories.exceptions.CustomAccessDeniedHandler;
 import com.fijalkowskim.travelmemories.exceptions.CustomHTTPException;
+import com.fijalkowskim.travelmemories.models.photos.Like;
 import com.fijalkowskim.travelmemories.repositories.LikesDAORepository;
 import com.fijalkowskim.travelmemories.repositories.PhotoDAORepository;
 import com.fijalkowskim.travelmemories.repositories.UserDAORepository;
@@ -37,12 +38,15 @@ public class LikeServiceTest {
         PageRequest pageRequest = PageRequest.of(1, 1);
         when(likesDAORepository.findAllByPhotoId(1L, pageRequest))
                 .thenReturn(Page.empty());
-        assertThat(likeService.getLikesOfPhoto(1L, pageRequest)).isEqualTo(Page.empty());
+
+        Page<Like> page = likeService.getLikesOfPhoto(1L, pageRequest);
+
+        assertThat(page).isEqualTo(Page.empty());
     }
     @Test
     public void GetLikesOfPhoto_NegativePhotoId_ExceptionThrown(){
         PageRequest pageRequest = PageRequest.of(1, 1);
-        assertThatThrownBy(()->likeService.getLikesOfPhoto(-1L, pageRequest)).isInstanceOf(CustomHTTPException.class);
 
+        assertThatThrownBy(()->likeService.getLikesOfPhoto(-1L, pageRequest)).isInstanceOf(CustomHTTPException.class);
     }
 }
