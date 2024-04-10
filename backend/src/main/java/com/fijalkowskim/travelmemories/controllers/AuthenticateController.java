@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.fijalkowskim.travelmemories.models.users.User;
 import com.fijalkowskim.travelmemories.services.UserService;
 
-@Controller
+@RestController
 @RequestMapping( value = "/api/public/authenticate")
 @CrossOrigin("http://localhost:3000")
 public class AuthenticateController {
