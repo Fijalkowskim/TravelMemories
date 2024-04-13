@@ -18,6 +18,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
@@ -47,6 +49,26 @@ public class LikeServiceTest {
     public void GetLikesOfPhoto_NegativePhotoId_ExceptionThrown(){
         PageRequest pageRequest = PageRequest.of(1, 1);
 
-        assertThatThrownBy(()->likeService.getLikesOfPhoto(-1L, pageRequest)).isInstanceOf(CustomHTTPException.class);
+        assertThatThrownBy(()->likeService.getLikesOfPhoto(-1L, pageRequest))
+                .isInstanceOf(CustomHTTPException.class);
+    }
+    @Test
+    public void GetLikeById_ProperData_Success(){
+        final long id = 1;
+        final Optional<Like> expectedLike = Optional.of(Like.builder().id(id).build());
+        when(likesDAORepository.findById(id)).thenReturn(expectedLike);
+
+        Like returnedLike = likeService.getLikeById(id);
+
+        assertThat(returnedLike).isEqualTo(expectedLike.get());
+    }
+    @Test
+    public void GetLikeById_NoSuchLike_ExceptionThrown(){
+        final long id = 2;
+        final Optional<Like> expectedLike = Optional.empty();
+        when(likesDAORepository.findById(id)).thenReturn(expectedLike);
+
+        assertThatThrownBy(()->likeService.getLikeById(id))
+                .isInstanceOf(CustomHTTPException.class);
     }
 }
