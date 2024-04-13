@@ -53,9 +53,9 @@ public class LikeServiceTest {
                 .isInstanceOf(CustomHTTPException.class);
     }
     @Test
-    public void GetLikeById_ProperData_Success(){
-        final long id = 1;
-        final Optional<Like> expectedLike = Optional.of(Like.builder().id(id).build());
+    public void GetLikeById_ProperId_Success(){
+        long id = 1;
+        Optional<Like> expectedLike = Optional.of(Like.builder().id(id).build());
         when(likesDAORepository.findById(id)).thenReturn(expectedLike);
 
         Like returnedLike = likeService.getLikeById(id);
@@ -64,11 +64,50 @@ public class LikeServiceTest {
     }
     @Test
     public void GetLikeById_NoSuchLike_ExceptionThrown(){
-        final long id = 2;
-        final Optional<Like> expectedLike = Optional.empty();
+        long id = 2;
+        Optional<Like> expectedLike = Optional.empty();
         when(likesDAORepository.findById(id)).thenReturn(expectedLike);
 
         assertThatThrownBy(()->likeService.getLikeById(id))
                 .isInstanceOf(CustomHTTPException.class);
+    }
+    @Test
+    public void GetLikeById_NegativeId_ExceptionThrown(){
+        long id = -1;
+        Optional<Like> expectedLike = Optional.empty();
+        when(likesDAORepository.findById(id)).thenReturn(expectedLike);
+
+        assertThatThrownBy(()->likeService.getLikeById(id))
+                .isInstanceOf(CustomHTTPException.class);
+    }
+    @Test
+    public void GetNumberOfLikesForPhoto_ProperId_Success(){
+        long id = 1;
+        int expectedNumberOfLikes = 1;
+        when(likesDAORepository.getNumberOfLikesForPhoto(id)).thenReturn(expectedNumberOfLikes);
+
+        int returnedNumberOfLikes = likeService.getNumberOfLikesForPhoto(id);
+
+        assertThat(returnedNumberOfLikes).isEqualTo(expectedNumberOfLikes);
+    }
+    @Test
+    public void GetNumberOfLikesForPhoto_NoSuchLike_Zero(){
+        long id = 2;
+        int expectedNumberOfLikes = 0;
+        when(likesDAORepository.getNumberOfLikesForPhoto(id)).thenReturn(expectedNumberOfLikes);
+
+        int returnedNumberOfLikes = likeService.getNumberOfLikesForPhoto(id);
+
+        assertThat(returnedNumberOfLikes).isEqualTo(expectedNumberOfLikes);
+    }
+    @Test
+    public void GetNumberOfLikesForPhoto_NegativeId_Zero(){
+        long id = -1;
+        int expectedNumberOfLikes = 0;
+        when(likesDAORepository.getNumberOfLikesForPhoto(id)).thenReturn(expectedNumberOfLikes);
+
+        int returnedNumberOfLikes = likeService.getNumberOfLikesForPhoto(id);
+
+        assertThat(returnedNumberOfLikes).isEqualTo(expectedNumberOfLikes);
     }
 }
