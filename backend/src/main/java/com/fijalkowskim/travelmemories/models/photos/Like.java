@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.Objects;
+
 @Data
 @Entity
 @Builder
@@ -34,5 +36,18 @@ public class Like {
         this.id = id;
         this.user = user;
         this.photo = photo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Like like = (Like) o;
+        return Objects.equals(id, like.id) && Objects.equals(user, like.user) && Objects.equals(photo, like.photo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, photo);
     }
 }

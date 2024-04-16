@@ -3,6 +3,8 @@ package com.fijalkowskim.travelmemories.services;
 import com.fijalkowskim.travelmemories.exceptions.CustomAccessDeniedHandler;
 import com.fijalkowskim.travelmemories.exceptions.CustomHTTPException;
 import com.fijalkowskim.travelmemories.models.photos.Like;
+import com.fijalkowskim.travelmemories.models.photos.Photo;
+import com.fijalkowskim.travelmemories.models.users.User;
 import com.fijalkowskim.travelmemories.repositories.LikesDAORepository;
 import com.fijalkowskim.travelmemories.repositories.PhotoDAORepository;
 import com.fijalkowskim.travelmemories.repositories.UserDAORepository;
@@ -336,5 +338,60 @@ public class LikeServiceTest {
         boolean returnedValue = likeService.didUserLikePhoto(likeRequest);
 
         assertThat(returnedValue).isFalse();
+    }
+    @Test
+    public void LikeFromRequest_ProperRequest_ReturnLike(){
+        long userId = 1;
+        long photoId = 1;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        User expectedUser = User.builder().id(userId).build();
+        Photo expectedPhoto = Photo.builder().id(photoId).build();
+        Like expectedLike = Like.builder().id(null).photo(expectedPhoto).user(expectedUser).build();
+        when(userDAORepository.findById(userId)).thenReturn(Optional.of(expectedUser));
+        when(photoDAORepository.findById(photoId)).thenReturn(Optional.of(expectedPhoto));
+
+        Like returnedLike = likeService.likeFromRequest(likeRequest);
+
+        assertThat(returnedLike).isEqualTo(expectedLike);
+    }
+    @Test
+    public void LikeFromRequest_NonExistingUserId_ExceptionThrown(){
+        long userId = 2;
+        long photoId = 1;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        when(userDAORepository.findById(userId)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(()->likeService.likeFromRequest(likeRequest)).isInstanceOf(CustomHTTPException.class);
+    }
+    @Test
+    public void LikeFromRequest_NonExistingPhotoId_ExceptionThrown(){
+        long userId = 1;
+        long photoId = 2;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        User expectedUser = User.builder().id(userId).build();
+        when(userDAORepository.findById(userId)).thenReturn(Optional.of(expectedUser));
+        when(photoDAORepository.findById(photoId)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(()->likeService.likeFromRequest(likeRequest)).isInstanceOf(CustomHTTPException.class);
+    }
+    @Test
+    public void LikeFromRequest_NegativeUserId_ExceptionThrown(){
+        long userId = -1;
+        long photoId = 1;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        when(userDAORepository.findById(userId)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(()->likeService.likeFromRequest(likeRequest)).isInstanceOf(CustomHTTPException.class);
+    }
+    @Test
+    public void LikeFromRequest_NegativePhotoId_ExceptionThrown(){
+        long userId = 1;
+        long photoId = -1;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        User expectedUser = User.builder().id(userId).build();
+        when(userDAORepository.findById(userId)).thenReturn(Optional.of(expectedUser));
+        when(photoDAORepository.findById(photoId)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(()->likeService.likeFromRequest(likeRequest)).isInstanceOf(CustomHTTPException.class);
     }
 }
