@@ -271,4 +271,70 @@ public class LikeServiceTest {
 
         assertThatThrownBy(()->likeService.userLikeDislikePhoto(likeRequest)).isInstanceOf(CustomHTTPException.class);
     }
+    @Test
+    public void DidUserLikePhoto_UserAlreadyLikedPhoto_ReturnTrue(){
+        long userId = 1;
+        long photoId = 1;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        when(likesDAORepository.findByPhotoIdAndUserId(photoId,userId)).thenReturn(Optional.of(Like.builder().build()));
+
+        boolean returnedValue = likeService.didUserLikePhoto(likeRequest);
+
+        assertThat(returnedValue).isTrue();
+    }
+    @Test
+    public void DidUserLikePhoto_UserDidntLikedPhotoYet_ReturnFalse(){
+        long userId = 1;
+        long photoId = 2;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        when(likesDAORepository.findByPhotoIdAndUserId(photoId,userId)).thenReturn(Optional.empty());
+
+        boolean returnedValue = likeService.didUserLikePhoto(likeRequest);
+
+        assertThat(returnedValue).isFalse();
+    }
+    @Test
+    public void DidUserLikePhoto_NonExistingUserId_ReturnFalse(){
+        long userId = 2;
+        long photoId = 1;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        when(likesDAORepository.findByPhotoIdAndUserId(photoId,userId)).thenReturn(Optional.empty());
+
+        boolean returnedValue = likeService.didUserLikePhoto(likeRequest);
+
+        assertThat(returnedValue).isFalse();
+    }
+    @Test
+    public void DidUserLikePhoto_NonExistingPhotoId_ReturnFalse(){
+        long userId = 1;
+        long photoId = 3;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        when(likesDAORepository.findByPhotoIdAndUserId(photoId,userId)).thenReturn(Optional.empty());
+
+        boolean returnedValue = likeService.didUserLikePhoto(likeRequest);
+
+        assertThat(returnedValue).isFalse();
+    }
+    @Test
+    public void DidUserLikePhoto_NegativeUserId_ReturnFalse(){
+        long userId = -1;
+        long photoId = 1;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        when(likesDAORepository.findByPhotoIdAndUserId(photoId,userId)).thenReturn(Optional.empty());
+
+        boolean returnedValue = likeService.didUserLikePhoto(likeRequest);
+
+        assertThat(returnedValue).isFalse();
+    }
+    @Test
+    public void DidUserLikePhoto_NegativePhotoId_ReturnFalse(){
+        long userId = 1;
+        long photoId = -1;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        when(likesDAORepository.findByPhotoIdAndUserId(photoId,userId)).thenReturn(Optional.empty());
+
+        boolean returnedValue = likeService.didUserLikePhoto(likeRequest);
+
+        assertThat(returnedValue).isFalse();
+    }
 }
