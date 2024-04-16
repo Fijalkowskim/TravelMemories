@@ -109,7 +109,27 @@ public class LikeServiceTest {
         assertThatThrownBy(() -> likeService.addLike(likeRequest)).isInstanceOf(CustomHTTPException.class);
     }
     @Test
-    public void AddLike_InvalidUserId_ExceptionThrown(){
+    public void AddLike_NonExistingUserId_ExceptionThrown(){
+        long photoId = 1;
+        long userId = 2;
+        LikeRequest likeRequest = LikeRequest.builder().photoId(photoId).userId(userId).build();
+        when(likesDAORepository.findByPhotoIdAndUserId(photoId,userId)).thenReturn(Optional.empty());
+        doThrow(new CustomHTTPException("No such user", HttpStatus.BAD_REQUEST)).when(likeService).likeFromRequest(likeRequest);
+
+        assertThatThrownBy(() -> likeService.addLike(likeRequest)).isInstanceOf(CustomHTTPException.class);
+    }
+    @Test
+    public void AddLike_NonExistingPhotoId_ExceptionThrown(){
+        long photoId = 2;
+        long userId = 1;
+        LikeRequest likeRequest = LikeRequest.builder().photoId(photoId).userId(userId).build();
+        when(likesDAORepository.findByPhotoIdAndUserId(photoId,userId)).thenReturn(Optional.empty());
+        doThrow(new CustomHTTPException("No such photo", HttpStatus.BAD_REQUEST)).when(likeService).likeFromRequest(likeRequest);
+
+        assertThatThrownBy(() -> likeService.addLike(likeRequest)).isInstanceOf(CustomHTTPException.class);
+    }
+    @Test
+    public void AddLike_NegativeUserId_ExceptionThrown(){
         long photoId = 1;
         long userId = -1;
         LikeRequest likeRequest = LikeRequest.builder().photoId(photoId).userId(userId).build();
@@ -119,7 +139,7 @@ public class LikeServiceTest {
         assertThatThrownBy(() -> likeService.addLike(likeRequest)).isInstanceOf(CustomHTTPException.class);
     }
     @Test
-    public void AddLike_InvalidPhotoId_ExceptionThrown(){
+    public void AddLike_NegativePhotoId_ExceptionThrown(){
         long photoId = -1;
         long userId = 1;
         LikeRequest likeRequest = LikeRequest.builder().photoId(photoId).userId(userId).build();
@@ -183,5 +203,72 @@ public class LikeServiceTest {
         int returnedNumberOfLikes = likeService.getNumberOfLikesForPhoto(id);
 
         assertThat(returnedNumberOfLikes).isEqualTo(expectedNumberOfLikes);
+    }
+    @Test
+    public void UserLikeDislikePhoto_UserDidntLikePhotoYet_ReturnLike(){
+        long userId = 1;
+        long photoId = 1;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        Like expectedLike = Like.builder().id(1L).build();
+        when(likesDAORepository.findByPhotoIdAndUserId(photoId,userId)).thenReturn(Optional.empty());
+        doReturn(expectedLike).when(likeService).likeFromRequest(likeRequest);
+        when(likesDAORepository.save(expectedLike)).thenReturn(expectedLike);
+
+        Like returnedLike = likeService.userLikeDislikePhoto(likeRequest);
+
+        assertThat(returnedLike).isEqualTo(expectedLike);
+    }
+    @Test
+    public void UserLikeDislikePhoto_UseAlreadyLikedPhoto_ReturnNull(){
+        long userId = 1;
+        long photoId = 2;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        Optional<Like> expectedLikeOptional = Optional.of(Like.builder().id(2L).build());
+        when(likesDAORepository.findByPhotoIdAndUserId(photoId,userId)).thenReturn(expectedLikeOptional);
+
+        Like returnedLike = likeService.userLikeDislikePhoto(likeRequest);
+
+        verify(likesDAORepository).delete(expectedLikeOptional.get());
+        assertThat(returnedLike).isEqualTo(null);
+    }
+    @Test
+    public void UserLikeDislikePhoto_NonExistingUserId_ExceptionThrown(){
+        long userId = 2;
+        long photoId = 1;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        when(likesDAORepository.findByPhotoIdAndUserId(photoId,userId)).thenReturn(Optional.empty());
+        doThrow(new CustomHTTPException("No such user", HttpStatus.BAD_REQUEST)).when(likeService).likeFromRequest(likeRequest);
+
+        assertThatThrownBy(()->likeService.userLikeDislikePhoto(likeRequest)).isInstanceOf(CustomHTTPException.class);
+    }
+    @Test
+    public void UserLikeDislikePhoto_NonExistingPhotoId_ExceptionThrown(){
+        long userId = 1;
+        long photoId = 2;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        when(likesDAORepository.findByPhotoIdAndUserId(photoId,userId)).thenReturn(Optional.empty());
+        doThrow(new CustomHTTPException("No such photo", HttpStatus.BAD_REQUEST)).when(likeService).likeFromRequest(likeRequest);
+
+        assertThatThrownBy(()->likeService.userLikeDislikePhoto(likeRequest)).isInstanceOf(CustomHTTPException.class);
+    }
+    @Test
+    public void UserLikeDislikePhoto_NegativeUserId_ExceptionThrown(){
+        long userId = -1;
+        long photoId = 1;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        when(likesDAORepository.findByPhotoIdAndUserId(photoId,userId)).thenReturn(Optional.empty());
+        doThrow(new CustomHTTPException("No such user", HttpStatus.BAD_REQUEST)).when(likeService).likeFromRequest(likeRequest);
+
+        assertThatThrownBy(()->likeService.userLikeDislikePhoto(likeRequest)).isInstanceOf(CustomHTTPException.class);
+    }
+    @Test
+    public void UserLikeDislikePhoto_NegativePhotoId_ExceptionThrown(){
+        long userId = 1;
+        long photoId = -1;
+        LikeRequest likeRequest = LikeRequest.builder().userId(userId).photoId(photoId).build();
+        when(likesDAORepository.findByPhotoIdAndUserId(photoId,userId)).thenReturn(Optional.empty());
+        doThrow(new CustomHTTPException("No such photo", HttpStatus.BAD_REQUEST)).when(likeService).likeFromRequest(likeRequest);
+
+        assertThatThrownBy(()->likeService.userLikeDislikePhoto(likeRequest)).isInstanceOf(CustomHTTPException.class);
     }
 }
