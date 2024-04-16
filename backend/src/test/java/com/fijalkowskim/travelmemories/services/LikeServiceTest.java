@@ -128,8 +128,32 @@ public class LikeServiceTest {
 
         assertThatThrownBy(() -> likeService.addLike(likeRequest)).isInstanceOf(CustomHTTPException.class);
     }
+    @Test
+    public void DeleteLike_ProperId_Success(){
+        long id = 1;
+        Optional<Like> expectedOptional = Optional.of(Like.builder().id(id).build());
+        when(likesDAORepository.findById(id)).thenReturn(expectedOptional);
 
+        likeService.deleteLike(id);
 
+        verify(likesDAORepository).delete(expectedOptional.get());
+    }
+    @Test
+    public void DeleteLike_NoSuchLike_ExceptionThrown(){
+        long id = 2;
+        Optional<Like> expectedOptional = Optional.empty();
+        when(likesDAORepository.findById(id)).thenReturn(expectedOptional);
+
+        assertThatThrownBy(() -> likeService.deleteLike(id)).isInstanceOf(CustomHTTPException.class);
+    }
+    @Test
+    public void DeleteLike_NegativeId_ExceptionThrown(){
+        long id = -1;
+        Optional<Like> expectedOptional = Optional.empty();
+        when(likesDAORepository.findById(id)).thenReturn(expectedOptional);
+
+        assertThatThrownBy(() -> likeService.deleteLike(id)).isInstanceOf(CustomHTTPException.class);
+    }
     @Test
     public void GetNumberOfLikesForPhoto_ProperId_Success(){
         long id = 1;
